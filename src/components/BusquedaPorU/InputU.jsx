@@ -12,6 +12,7 @@ const InputUsuarioU = () => {
   const apiClient = new ApiClient();
   const [usuarioU , setUsuarioU] = useState("")
   const [encuestas, setEncuestas] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e)=>{
     setUsuarioU(e.target.value.toUpperCase())
@@ -21,27 +22,34 @@ const InputUsuarioU = () => {
 const handleSubmit = async (event) => {
   event.preventDefault();
   event.stopPropagation();
-
+  setLoading(true);
   try {
     const response = await apiClient.getNpsbyU(usuarioU);
     if (response) {
       setEncuestas(response.data)
     }
+    else {
+      setEncuestas([]);
+    }
   } catch (error) {
     console.log(error);
+  } finally {
+    setLoading(false);
   }
-}
+};
 
   return (
     <>
-      <Form onSubmit={handleSubmit}>
-      <Form.Control size="lg" type="text" placeholder="Ingresa tu usuario" name="user" id="user" onChange={handleChange} />
-      <br />
-      <Button variant="primary" type='submit'>Buscar</Button>
+      <Form onSubmit={handleSubmit} className="d-flex justify-content-center">
+        <Form.Control size="lg" type="text" placeholder="Ingresa tu usuario" name="user" id="user" onChange={handleChange} />
+        <Button variant="primary" type='submit' className='ms-2'>Buscar</Button>
       </Form>
-      {
-        encuestas?(<TablaDatos encuestas={encuestas}/>):<Loader />
-      }
+      <Loader className="mx-auto"/>
+      {loading ? (
+        <Loader className="mx-auto"/>
+      ) : encuestas.length > 0 ? (
+        <TablaDatos encuestas={encuestas} />
+      ) : null}
     </>
   
   )

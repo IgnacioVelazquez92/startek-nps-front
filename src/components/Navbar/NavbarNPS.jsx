@@ -11,7 +11,9 @@ function NavbarNPS() {
     <>
       <Navbar expand={"md"} className="bg-body-tertiary mb-3">
         <Container fluid>
-          <Navbar.Brand href="/email">NPS-STARTEK</Navbar.Brand>
+          <Navbar.Brand href="/email">
+            <img src="/SRT_BIG.svg" className='img-logo-nav' alt="Startek" />
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} />
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-md`}

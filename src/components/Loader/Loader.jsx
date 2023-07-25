@@ -3,7 +3,9 @@ import ("./Loader.css")
 
 const Loader = () => {
   return (
-    <div className="custom-loader"></div>
+    <div className='d-flex justify-content-center my-1'>
+      <div className="custom-loader"></div>
+    </div>
   )
 }
 

@@ -6,9 +6,9 @@ import InputU from "./InputU";
 const SearchByU = () => {
   return (
     <>
-      <InputU />
-      <BarChart />
-      <BarChart />
+      <div className='container'>
+        <InputU />
+      </div>
     </>
   )
 }
