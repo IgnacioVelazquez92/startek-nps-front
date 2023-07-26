@@ -44,7 +44,6 @@ const handleSubmit = async (event) => {
         <Form.Control size="lg" type="text" placeholder="Ingresa tu usuario" name="user" id="user" onChange={handleChange} />
         <Button variant="primary" type='submit' className='ms-2'>Buscar</Button>
       </Form>
-      <Loader className="mx-auto"/>
       {loading ? (
         <Loader className="mx-auto"/>
       ) : encuestas.length > 0 ? (

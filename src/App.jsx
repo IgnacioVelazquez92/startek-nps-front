@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider, createRoutesFromElements,Route } f
 import {routes} from './Routes/routes'
 import RootLayout from './Layout/RootLayout'
 import ("./App.css")
+import ("react-datepicker/dist/react-datepicker.css")
 
 const router = createBrowserRouter(
   createRoutesFromElements(

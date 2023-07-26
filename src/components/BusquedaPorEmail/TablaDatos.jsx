@@ -3,7 +3,7 @@ import Table from 'react-bootstrap/Table';
 
 const TablaDatos = ({ encuestas }) => {
   return (
-    <div>
+    <div className='my-2'>
       {encuestas ? (
         <Table striped bordered hover>
           <thead>
