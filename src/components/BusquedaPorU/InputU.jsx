@@ -2,7 +2,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import React, { useState } from 'react';
 import { ApiClient } from '../../api/services';
-import TablaDatos from './TablaPorU';
+import TablaPorU from './TablaPorU';
 import Loader from '../Loader/Loader';
 
 
@@ -46,9 +46,9 @@ const handleSubmit = async (event) => {
       </Form>
       {loading ? (
         <Loader className="mx-auto"/>
-      ) : encuestas.length > 0 ? (
-        <TablaDatos encuestas={encuestas} />
-      ) : null}
+      ) : encuestas.length > 1 ? (
+        <TablaPorU encuestas={encuestas} />
+      ) : <p className='text-center my-2'>No se encotraron registros</p> }
     </>
   
   )

@@ -29,6 +29,7 @@ const handleSubmit = async (event) => {
     const response = await apiClient.getNpsbyEmail(email);
     if (response) {
       setEncuestas(response.data)
+      console.log(response.data);
     }else {
       setEncuestas([]);
     }
@@ -48,9 +49,9 @@ const handleSubmit = async (event) => {
       </Form>
       {loading ? (
         <Loader className="mx-auto"/>
-      ) : encuestas.length > 0 ? (
+      ) : encuestas.length > 1 ? (
         <TablaDatos encuestas={encuestas} />
-      ) : null}
+      ) : <p className='text-center my-2'>No se encotraron registros</p>}
     </>
   
   )
