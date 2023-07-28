@@ -46,7 +46,7 @@ const handleSubmit = async (event) => {
       </Form>
       {loading ? (
         <Loader className="mx-auto"/>
-      ) : encuestas.length > 1 ? (
+      ) : encuestas.length >= 1 ? (
         <TablaPorU encuestas={encuestas} />
       ) : <p className='text-center my-2'>No se encotraron registros</p> }
     </>

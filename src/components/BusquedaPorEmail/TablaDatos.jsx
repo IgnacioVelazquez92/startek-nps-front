@@ -6,9 +6,17 @@ const TablaDatos = ({ encuestas }) => {
 
   // Función para formatear la fecha en formato "MM/DD/YYYY" a "DD/MM/YYYY"
   const formatFecha = (fechaString) => {
-    const [month, day, year] = fechaString.split('/');
+    // Separa la fecha y la hora si es que viene en el formato completo
+    const fechaSolo = fechaString.split('T')[0];
+    
+    // Obtén los componentes de la fecha
+    const [year, month, day] = fechaSolo.split('-');
+    
+    // Crea el objeto Date con los componentes de la fecha
     const fechaObj = new Date(`${year}-${month}-${day}T00:00:00Z`);
-    return fechaObj.toLocaleDateString(undefined, {
+    
+    // Ahora puedes formatear la fecha como desees
+    return fechaObj.toLocaleDateString('es-ES', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric',
@@ -18,7 +26,7 @@ const TablaDatos = ({ encuestas }) => {
   return (
     <div className='my-2'>
       {
-        <Table striped bordered hover>
+        <Table striped bordered hover responsive>
           <thead>
             <tr>
               <th>Usuario</th>
