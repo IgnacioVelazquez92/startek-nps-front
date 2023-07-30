@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { ApiClient } from '../../api/services';
 import TablaDatos from './TablaDatos';
 import Loader from '../Loader/Loader';
-import DatePicker from 'react-datepicker'
 
 
 
@@ -51,7 +50,7 @@ const handleSubmit = async (event) => {
         <Loader className="mx-auto"/>
       ) : encuestas.length > 0 ? (
         <TablaDatos encuestas={encuestas} />
-      ) : <p className='text-center my-2'>No se encotraron registros</p>}
+      ) : <p className='text-center my-2'>No se encontraron registros</p>}
     </>
   
   )

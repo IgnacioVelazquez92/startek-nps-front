@@ -18,4 +18,8 @@ export class ApiClient {
   async getNpsbyU(usuarioU) {
     return this.client.get(`/get-by-user/${usuarioU}`);
   }
+
+  async getAll() {
+    return this.client.get(`/get-all`);
+  }
 }

@@ -39,11 +39,11 @@ const TablaDatos = ({ encuestas }) => {
           <tbody>
             {encuestas.map((encuesta) => (
               <tr key={encuesta._recordId}>
-                <td>{encuesta["Datos embebidos - AGENTE_RP"]}</td>
-                <td>{formatFecha(encuesta["Fecha"])}</td>
-                <td>{encuesta['2 - En base a tu último contacto realizado, ¿qué probabilidad hay de que recomi...']}</td>
-                <td>{encuesta['(Grupo) 2_NPS_GROUP - En base a tu último contacto realizado, ¿qué probabilidad hay de que recomi...']}</td>
-                <td>{encuesta['3 - ¿Cuál es el motivo de tu calificación?']}</td>
+                <td>{encuesta.UsuarioU}</td>
+                <td>{formatFecha(encuesta.Fecha)}</td>
+                <td>{encuesta.NPS_Calification}</td>
+                <td>{encuesta.NPS_GROUP}</td>
+                <td>{encuesta.Opinion}</td>
               </tr>
             ))}
           </tbody>

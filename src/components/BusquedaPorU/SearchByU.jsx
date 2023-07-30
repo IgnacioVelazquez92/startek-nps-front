@@ -1,5 +1,5 @@
 import React from 'react';
-import BarChart from '../Charts/BarChart';
+// import BarChart from '../Charts/BarChart';
 import InputU from "./InputU";
 
 
