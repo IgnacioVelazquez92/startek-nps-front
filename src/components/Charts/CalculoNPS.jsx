@@ -1,86 +1,64 @@
-import React, { useState, useEffect } from 'react';
-import {ApiClient} from '../../api/services'; // Asegúrate de importar la clase adecuada
+import React from 'react'
 
 
-const CalculoNPS = () => {
-  const [npsData, setNpsData] = useState({});
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const apiClient = new ApiClient();
-        const encuestas = await apiClient.getAll();
-
-        // Crear un objeto para almacenar los datos del NPS por mes
-        const npsByMonth = {};
-
-        encuestas.forEach((encuesta) => {
-          const nps = encuesta["2_NPS_GROUP"];
-          const fechaInicio = new Date(encuesta["Metadatos de la encuesta - Fecha de inicio (+00:00 GMT)"]);
-          const mes = fechaInicio.getMonth();
-          const year = fechaInicio.getFullYear();
-
-          const key = `${year}-${mes}`; // Utilizamos el formato 'YYYY-MM' como clave para cada mes
-
-          if (!npsByMonth[key]) {
-            // Si es la primera encuesta del mes, inicializamos los valores
-            npsByMonth[key] = {
-              promotores: 0,
-              detractores: 0,
-              neutros: 0,
-            };
-          }
-
-          // Incrementamos el contador correspondiente según la categoría NPS
-          if (nps === "Promotor") {
-            npsByMonth[key].promotores++;
-          } else if (nps === "Detractor") {
-            npsByMonth[key].detractores++;
-          } else if (nps === "Neutro") {
-            npsByMonth[key].neutros++;
-          }
-          //  else{
-          //   //no hay nada
-          //   console.log("vacio");
-          // }
-        });
-
-        setNpsData(npsByMonth);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+const CalculoNPS = ({ data }) => {
   // Función para calcular el NPS
-  const calculateNPS = (promotores, detractores, neutros) => {
-    const totalResponses = promotores + detractores + neutros;
-    const nps = ((promotores - detractores) / totalResponses) * 100;
-    return nps;
+  const calculateNps = (promoters, detractors, totalResponses) => {
+    const nps = ((promoters - detractors) / totalResponses) * 100;
+    return nps.toFixed(2);
   };
 
-  return (
-    <div>
-      <p>Hola mundo</p>
-      {Object.keys(npsData).map((month) => {
-        const { promotores, detractores, neutros } = npsData[month];
-        const [year, monthNum] = month.split('-');
-        const nps = calculateNPS(promotores, detractores, neutros).toFixed(2);
-        return (
-          <div key={month}>
-            <p>Year: {year}</p>
-            <p>Month: {monthNum}</p>
-            <p>Promotores: {promotores}</p>
-            <p>Detractores: {detractores}</p>
-            <p>Neutros: {neutros}</p>
-            <p>NPS: {nps}%</p>
-          </div>
-        );
-      })}
-    </div>
-  );
-};
+  // Filtrar los registros según el valor de "NPS_GROUP"
+  const promoters = data.filter(item => item.NPS_GROUP === 'Promotor').length;
+  const detractors = data.filter(item => item.NPS_GROUP === 'Detractor').length;
+  const neutrals = data.filter(item => item.NPS_GROUP === 'Pasivo').length;
 
-export default CalculoNPS;
+  // Calcular el NPS
+  const totalResponses = promoters + detractors + neutrals;
+  const nps = calculateNps(promoters, detractors, totalResponses);
+
+// //empaquetar
+
+// const data = [
+//   { Clientes: 'Promotores', count: promoters },
+//   { Clientes: 'Detractores', count: detractors },
+//   { Clientes: 'Neutros', count: neutrals },
+// ];
+
+  return (
+
+    <>
+    <h1 className='text-center'>Resultado a nivel cuenta:</h1>
+    <table class="table table-hover my-3 responsive container">
+      <tbody>
+      <tr className="table-success">
+        <th scope="row">Promotores</th>
+        <td>{promoters}</td>
+      </tr>
+
+      <tr className="table-danger">
+        <th scope="row">Detractores</th>
+        <td>{detractors}</td>
+      </tr>
+
+      <tr className="table-warning">
+        <th scope="row">Neutros</th>
+        <td>{neutrals}</td>
+      </tr>
+
+      <tr className="table-light">
+        <th scope="row">Total de respuestas:</th>
+        <td>{totalResponses}</td>
+      </tr>
+      <tr className="table-info">
+        <th scope="row">NPS</th>
+        <td>{nps}%</td>
+      </tr>
+      </tbody>
+    </table>
+    </>
+
+  );
+}
+
+export default CalculoNPS

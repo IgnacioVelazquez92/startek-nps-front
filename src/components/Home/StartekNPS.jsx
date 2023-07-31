@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ApiClient } from '../../api/services';
+import CalculoNPS from '../Charts/CalculoNPS';
+
 
 const EncuestasPorMes = () => {
+  const [encuestas, setEncuestas]=useState([])
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(new Date()); // Establecer "hasta" como el día de hoy por defecto
+  const apiClient = new ApiClient();
+
+
+  useEffect(() => {
+    // Configurar la fecha "desde" por defecto al primer día del mes en curso
+    const firstDayOfMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 1);
+    setStartDate(firstDayOfMonth);
+  }, []);
+
 
   const handleDateChange = (date, field) => {
     if (field === 'from') {
@@ -15,40 +27,33 @@ const EncuestasPorMes = () => {
     }
   };
 
-  const getEncuestasPorRangoFechas = () => {
+  const getEncuestasPorRangoFechas = async () => {
     // Verificar que ambas fechas estén seleccionadas
     if (!startDate || !endDate) return;
-
-    // Obtener el rango de fechas como "desde" y "hasta" en formato MM/DD/YYYY
+  
+    // Formatear las fechas para enviarlas al backend en el formato "dd/MM/yyyy"
     const fromDate = formatDate(startDate);
     const toDate = formatDate(endDate);
-
-    console.log(startDate,endDate );
-
-    // Realizar la petición a tu backend con el rango de fechas seleccionado
-    // Aquí debes utilizar la función de tu librería de peticiones HTTP, como fetch o axios
-    // Por ejemplo:
-    // fetch(`/api/encuestas?desde=${fromDate}&hasta=${toDate}`)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     // Aquí puedes manejar los datos recibidos y actualizar el estado de tu componente
-    //   })
-    //   .catch((error) => {
-    //     // Manejar el error si la petición falla
-    //   });
+  
+    try {
+      const objetoFecha = { desde: fromDate, hasta: toDate };
+      const response = await apiClient.getNpsbyDate(objetoFecha);
+      setEncuestas(response.data)
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const formatDate = (date) => {
-    // Obtener el mes y día de la fecha y formatearla como "MM/DD/YYYY"
-    const month = String(date.getMonth() + 1).padStart(2, '0');
+    // Obtener el día, mes y año de la fecha y formatearla como "dd/MM/yyyy"
     const day = String(date.getDate()).padStart(2, '0');
-    const formattedDate = `${month}/${day}/${date.getFullYear()}`;
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const formattedDate = `${day}/${month}/${date.getFullYear()}`;
     return formattedDate;
   };
 
   return (
     <div>
-      <h1 className='text-center'>Encuestas por Rango de Fechas</h1>
       <div className='d-flex justify-content-center align-items-center'>
         <DatePicker
           selected={startDate}
@@ -72,12 +77,11 @@ const EncuestasPorMes = () => {
           isClearable
           placeholderText="Hasta"
           className='me-2 rounded py-1'
-
         />
       <button onClick={getEncuestasPorRangoFechas} className="btn btn-outline-primary ">Buscar</button>
       </div>
-      {/* Agrega un botón para hacer la búsqueda */}
-      {/* Aquí puedes mostrar las encuestas filtradas */}
+
+      <CalculoNPS data={encuestas} />
     </div>
   );
 };

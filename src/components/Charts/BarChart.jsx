@@ -1,40 +1,33 @@
-// import React from 'react'
-// import Chart from 'chart.js/auto'
+// import React, { useEffect } from 'react';
+// import Chart from 'chart.js/auto';
 
-// (async function() {
-//   const data = [
-//     { year: 2010, count: 10 },
-//     { year: 2011, count: 20 },
-//     { year: 2012, count: 15 },
-//     { year: 2013, count: 25 },
-//     { year: 2014, count: 22 },
-//     { year: 2015, count: 30 },
-//     { year: 2016, count: 28 },
-//   ];
+// const BarChart = ({data}) => {
+//   useEffect(() => {
+//     const chartData = {
+//       labels: ['Promotores', 'Detractores', 'Neutros'],
+//       datasets: [
+//         {
+//           label: 'NPS Scores',
+//           data: [promoters, detractors, neutrals],
+//           backgroundColor: ['#4CAF50', '#F44336', '#FFC107'], // Colores para las barras
+//           borderColor: '#fff',
+//           borderWidth: 1,
+//         },
+//       ],
+//     };
 
-//   new Chart(
-//     document.getElementById('acquisitions'),
-//     {
-//       type: 'bar',
-//       data: {
-//         labels: data.map(row => row.year),
-//         datasets: [
-//           {
-//             label: 'Acquisitions by year',
-//             data: data.map(row => row.count)
-//           }
-//         ]
+//     new Chart(
+//       document.getElementById('acquisitions'),
+//       {
+//         type: 'bar',
+//         data: chartData,
 //       }
-//     }
-//   );
-// })();
+//     );
+//   }, [promoters, detractors, neutrals]);
 
-
-
-// const BarChart = () => {
 //   return (
 //     <canvas id='acquisitions' className='container'></canvas>
-//   )
-// }
+//   );
+// };
 
-// export default BarChart
+// export default BarChart;

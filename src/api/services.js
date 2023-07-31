@@ -22,4 +22,13 @@ export class ApiClient {
   async getAll() {
     return this.client.get(`/get-all`);
   }
+
+  async getNpsbyDate(fechas) {
+    console.log(fechas);
+    return this.client.post(`/get-by-date`, fechas);
+  }
+
+  async getNpsbyDateAndU(fechaYU) {
+    return this.client.post(`/get-by-date-user`, fechaYU);
+  }
 }
