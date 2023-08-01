@@ -1,57 +1,154 @@
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import React, { useState } from 'react';
-import { ApiClient } from '../../api/services';
-import TablaPorU from './TablaPorU';
-import Loader from '../Loader/Loader';
-
-
-
+import DatePicker from "react-datepicker";
+import React, { useState, useEffect } from "react";
+import { ApiClient } from "../../api/services";
+import TablaPorU from "./TablaPorU";
+import Loader from "../Loader/Loader";
+import NPSActual from "../Home/NPSActual";
+import CalculoNPS from "../Charts/CalculoNPS";
 
 const InputUsuarioU = () => {
+
   const apiClient = new ApiClient();
-  const [usuarioU , setUsuarioU] = useState("")
-  const [encuestas, setEncuestas] = useState("");
+  const [formData, setFormData] = useState({
+    startDate: null,
+    endDate: new Date(),
+    usuarioU: "",
+  });
+  const [encuestas, setEncuestas] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e)=>{
-    setUsuarioU(e.target.value.toUpperCase())
-    console.log(e.target.value.toUpperCase());
-  }
+  useEffect(() => {
+    // Configurar la fecha "desde" por defecto al primer día del mes en curso
+    const firstDayOfMonth = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      1
+    );
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      startDate: firstDayOfMonth,
+    }));
+  }, []);
 
-const handleSubmit = async (event) => {
-  event.preventDefault();
-  event.stopPropagation();
-  setLoading(true);
-  try {
-    const response = await apiClient.getNpsbyU(usuarioU);
-    if (response) {
-      setEncuestas(response.data)
+  const handleDateChange = (date, name) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: date,
+    }));
+  };
+
+  const handleChange = (e) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      usuarioU: e.target.value.toUpperCase(),
+    }));
+  };
+
+  const formatDate = (date) => {
+    // Obtener el día, mes y año de la fecha y formatearla como "dd/MM/yyyy"
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const formattedDate = `${day}/${month}/${date.getFullYear()}`;
+    return formattedDate;
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    // Verificar que ambas fechas estén seleccionadas
+    if (!formData.startDate || !formData.endDate) return;
+
+    setLoading(true);
+    // Formatear las fechas para enviarlas al backend en el formato "dd/MM/yyyy"
+    const fromDate = formatDate(formData.startDate);
+    const toDate = formatDate(formData.endDate);
+
+    try {
+      const fechaYU = {
+        desde: fromDate,
+        hasta: toDate,
+        usuarioU: formData.usuarioU,
+      };
+
+      console.log(fechaYU);
+      const response = await apiClient.getNpsbyDateAndU(fechaYU);
+      setEncuestas(response.data);
+
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
-    else {
-      setEncuestas([]);
-    }
-  } catch (error) {
-    console.log(error);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
     <>
-      <Form onSubmit={handleSubmit} className="d-flex justify-content-center">
-        <Form.Control size="lg" type="text" placeholder="Ingresa tu usuario" name="user" id="user" onChange={handleChange} />
-        <Button variant="primary" type='submit' className='ms-2'>Buscar</Button>
-      </Form>
-      {loading ? (
-        <Loader className="mx-auto"/>
-      ) : encuestas.length >= 1 ? (
-        <TablaPorU encuestas={encuestas} />
-      ) : <p className='text-center my-2'>No se encontraron registros</p> }
-    </>
-  
-  )
-}
 
-export default InputUsuarioU
+      <form
+              onSubmit={handleSubmit}
+              className="d-lg-flex flex-wrap justify-content-center"
+            >
+              <div className="row g-3">
+                <div className="col">
+                  <DatePicker
+                    selected={formData.startDate}
+                    onChange={(date) => handleDateChange(date, "startDate")}
+                    selectsStart
+                    startDate={formData.startDate}
+                    endDate={formData.endDate}
+                    dateFormat="dd/MM/yyyy"
+                    isClearable
+                    placeholderText="Desde"
+                    className="me-3 mb-2 rounded py-1 form-control form-control-lg"
+                  />
+                </div>
+                <div className="col">
+                  <DatePicker
+                    selected={formData.endDate}
+                    onChange={(date) => handleDateChange(date, "endDate")}
+                    selectsEnd
+                    startDate={formData.startDate}
+                    endDate={formData.endDate}
+                    minDate={formData.startDate}
+                    dateFormat="dd/MM/yyyy"
+                    isClearable
+                    placeholderText="Hasta"
+                    className="mb-2 rounded py-1 form-control form-control-lg"
+                  />
+                </div>
+              </div>
+
+              <div className="row g-3">
+                <div className="col-9">
+                  <input
+                    type="text"
+                    value={formData.usuarioU}
+                    onChange={handleChange}
+                    className="form-control form-control-lg"
+                    placeholder="Ingresa tu usuario U"
+                    aria-label="Ingresa tu usuario-u"
+                    pattern="^(u|U)\d{6}$"
+                    required
+                  />
+                </div>
+
+                <div className="col-3">
+                  <button type="submit" className="btn btn-outline-primary btn-lg">
+                    Calcular
+                  </button>
+                </div>
+              </div>
+      </form>
+      {
+        loading? <Loader />: encuestas? (<div>
+          <CalculoNPS data={encuestas} />
+          <TablaPorU encuestas={encuestas}/>
+        </div>): <p>no se encontraron datos</p>
+      }
+    </>
+  );
+};
+
+export default InputUsuarioU;

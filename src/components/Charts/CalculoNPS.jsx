@@ -28,8 +28,8 @@ const CalculoNPS = ({ data }) => {
   return (
 
     <>
-    <h1 className='text-center'>Resultado a nivel cuenta:</h1>
-    <table class="table table-hover my-3 responsive container">
+    <h1 className='text-center'>Resultados:</h1>
+    <table className="table table-hover my-3 responsive container">
       <tbody>
       <tr className="table-success">
         <th scope="row">Promotores</th>

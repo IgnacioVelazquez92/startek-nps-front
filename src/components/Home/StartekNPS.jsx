@@ -3,12 +3,14 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ApiClient } from '../../api/services';
 import CalculoNPS from '../Charts/CalculoNPS';
+import Loader from '../Loader/Loader';
 
 
 const EncuestasPorMes = () => {
   const [encuestas, setEncuestas]=useState([])
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(new Date()); // Establecer "hasta" como el día de hoy por defecto
+  const [loading, setLoading] = useState(false);
   const apiClient = new ApiClient();
 
 
@@ -30,7 +32,8 @@ const EncuestasPorMes = () => {
   const getEncuestasPorRangoFechas = async () => {
     // Verificar que ambas fechas estén seleccionadas
     if (!startDate || !endDate) return;
-  
+    
+    setLoading(true);
     // Formatear las fechas para enviarlas al backend en el formato "dd/MM/yyyy"
     const fromDate = formatDate(startDate);
     const toDate = formatDate(endDate);
@@ -41,6 +44,8 @@ const EncuestasPorMes = () => {
       setEncuestas(response.data)
     } catch (error) {
       console.log(error);
+    }finally {
+      setLoading(false);
     }
   };
 
@@ -54,33 +59,40 @@ const EncuestasPorMes = () => {
 
   return (
     <div>
-      <div className='d-flex justify-content-center align-items-center'>
-        <DatePicker
-          selected={startDate}
-          onChange={(date) => handleDateChange(date, 'from')}
-          selectsStart
-          startDate={startDate}
-          endDate={endDate}
-          dateFormat="dd/MM/yyyy"
-          isClearable
-          placeholderText="Desde"
-          className='me-2 rounded py-1'
-        />
-        <DatePicker
-          selected={endDate}
-          onChange={(date) => handleDateChange(date, 'to')}
-          selectsEnd
-          startDate={startDate}
-          endDate={endDate}
-          minDate={startDate}
-          dateFormat="dd/MM/yyyy"
-          isClearable
-          placeholderText="Hasta"
-          className='me-2 rounded py-1'
-        />
-      <button onClick={getEncuestasPorRangoFechas} className="btn btn-outline-primary ">Buscar</button>
-      </div>
+      <div className='d-flex flex-column flex-md-row justify-content-center align-items-md-center'>
+        <div className='d-flex justify-content-center'>
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => handleDateChange(date, 'from')}
+            selectsStart
+            startDate={startDate}
+            endDate={endDate}
+            dateFormat="dd/MM/yyyy"
+            isClearable
+            placeholderText="Desde"
+            className='me-2 mb-2 rounded py-1 form-control  form-control-lg'
+          />
+          <DatePicker
+            selected={endDate}
+            onChange={(date) => handleDateChange(date, 'to')}
+            selectsEnd
+            startDate={startDate}
+            endDate={endDate}
+            minDate={startDate}
+            dateFormat="dd/MM/yyyy"
+            isClearable
+            placeholderText="Hasta"
+            className='me-2 mb-2 rounded py-1 form-control form-control-lg'
+          />
 
+        </div>
+        <div className='d-flex justify-content-center'>
+          <button onClick={getEncuestasPorRangoFechas} className="btn btn-outline-primary btn-lg mb-2">Calcular NPS</button>
+        </div>
+      </div>
+      {
+        loading && <Loader className="mx-auto"/>
+      }
       <CalculoNPS data={encuestas} />
     </div>
   );
