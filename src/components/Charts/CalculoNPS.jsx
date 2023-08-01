@@ -57,7 +57,7 @@ const CalculoNPS = ({ data }) => {
 
     <>
     <h1 className='text-center'>Resultados:</h1>
-      <div className='d-lg-flex justify-content-evenly '>
+      <div className='d-lg-flex justify-content-evenly container gap-3'>
         <table className="table table-hover my-3 responsive container table-bordered ">
           <tbody>
           <tr className="table-success">

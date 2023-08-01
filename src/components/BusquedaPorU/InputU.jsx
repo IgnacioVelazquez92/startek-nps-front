@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { ApiClient } from "../../api/services";
 import TablaPorU from "./TablaPorU";
 import Loader from "../Loader/Loader";
-import NPSActual from "../Home/NPSActual";
 import CalculoNPS from "../Charts/CalculoNPS";
 
 const InputUsuarioU = () => {
@@ -45,36 +44,34 @@ const InputUsuarioU = () => {
   };
 
   const formatDate = (date) => {
-    // Obtener el día, mes y año de la fecha y formatearla como "dd/MM/yyyy"
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const formattedDate = `${day}/${month}/${date.getFullYear()}`;
+    const formattedDate = date.toISOString();
     return formattedDate;
   };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
-
+  
     // Verificar que ambas fechas estén seleccionadas
     if (!formData.startDate || !formData.endDate) return;
-
+  
     setLoading(true);
-    // Formatear las fechas para enviarlas al backend en el formato "dd/MM/yyyy"
+    // Formatear las fechas para enviarlas al backend en formato ISO 8601
     const fromDate = formatDate(formData.startDate);
     const toDate = formatDate(formData.endDate);
-
+  
     try {
       const fechaYU = {
         desde: fromDate,
         hasta: toDate,
         usuarioU: formData.usuarioU,
       };
-
+  
       console.log(fechaYU);
       const response = await apiClient.getNpsbyDateAndU(fechaYU);
       setEncuestas(response.data);
-
+  
       console.log(response.data);
     } catch (error) {
       console.log(error);
@@ -82,6 +79,7 @@ const InputUsuarioU = () => {
       setLoading(false);
     }
   };
+  
 
   return (
     <>
