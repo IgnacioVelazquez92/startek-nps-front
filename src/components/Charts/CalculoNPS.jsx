@@ -52,13 +52,6 @@ const CalculoNPS = ({ data }) => {
   const totalResponses = promoters + detractors + neutrals;
   const nps = calculateNps(promoters, detractors, totalResponses);
 
- //Calculo de Cordialidad
-
- //Calculo de conocimiento
-
-
- //Calculo de claridad
-//  calculo de resolución
 
   return (
 
