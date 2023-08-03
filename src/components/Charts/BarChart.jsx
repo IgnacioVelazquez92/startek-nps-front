@@ -1,33 +1,39 @@
-// import React, { useEffect } from 'react';
-// import Chart from 'chart.js/auto';
+import React from 'react';
+import { Bar } from 'react-chartjs-2';
 
-// const BarChart = ({data}) => {
-//   useEffect(() => {
-//     const chartData = {
-//       labels: ['Promotores', 'Detractores', 'Neutros'],
-//       datasets: [
-//         {
-//           label: 'NPS Scores',
-//           data: [promoters, detractors, neutrals],
-//           backgroundColor: ['#4CAF50', '#F44336', '#FFC107'], // Colores para las barras
-//           borderColor: '#fff',
-//           borderWidth: 1,
-//         },
-//       ],
-//     };
+const NPSChart = ({ npsData }) => {
+  // Obtener los datos y las etiquetas para el gráfico
+  const scores = npsData.map((data) => data.score);
+  const days = npsData.map((data) => data.day);
 
-//     new Chart(
-//       document.getElementById('acquisitions'),
-//       {
-//         type: 'bar',
-//         data: chartData,
-//       }
-//     );
-//   }, [promoters, detractors, neutrals]);
+  // Configuración del gráfico
+  const chartData = {
+    labels: days,
+    datasets: [
+      {
+        label: 'NPS por Día',
+        data: scores,
+        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+      },
+    ],
+  };
 
-//   return (
-//     <canvas id='acquisitions' className='container'></canvas>
-//   );
-// };
+  const chartOptions = {
+    scales: {
+      y: {
+        beginAtZero: true,
+        stepSize: 1,
+        suggestedMax: 10,
+      },
+    },
+  };
 
-// export default BarChart;
+  return (
+    <div>
+      <h2>Net Promoter Score por Día</h2>
+      <Bar data={chartData} options={chartOptions} />
+    </div>
+  );
+};
+
+export default NPSChart;

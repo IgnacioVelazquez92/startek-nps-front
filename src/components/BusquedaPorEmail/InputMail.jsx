@@ -42,7 +42,7 @@ const handleSubmit = async (event) => {
   return (
     <>
       <Form onSubmit={handleSubmit} className="d-flex justify-content-center">
-        <Form.Control size="lg" type="email" placeholder="Introduce el email" name="email" id="email" onChange={handleChange} />
+        <Form.Control size="lg" type="email" placeholder="Introduce el email del cliente" name="email" id="email" onChange={handleChange} required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"/>
       
         <Button variant="primary" type='submit' className='ms-2'>Buscar</Button>
       </Form>
