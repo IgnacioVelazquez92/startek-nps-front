@@ -131,7 +131,7 @@ const EncuestasPorMes = () => {
       {encuestas && <CalculoNPS data={encuestas} />}
 
       {encuestas && (
-        <div className="row d-flex justify-content-center">
+        <div className="mx-0 row d-flex justify-content-center">
           <LineChartDay
             className="col-lg-8 col-12 mx-auto"
             data={calculateNPSByDay()}
