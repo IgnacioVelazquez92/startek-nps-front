@@ -1,15 +1,12 @@
-import React from 'react'
-// import BarChart from '../Charts/BarChart'
-import CalculoNPS from '../Charts/CalculoNPS'
-import StartekNPS from '../Home/StartekNPS'
+import React from "react";
+import Carrusel from "./Carrusel";
 
 const Home = () => {
   return (
-
     <>
-      <StartekNPS />
+      <Carrusel />
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

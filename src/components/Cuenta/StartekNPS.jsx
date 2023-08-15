@@ -92,7 +92,7 @@ const EncuestasPorMes = () => {
 
   return (
     <div>
-      <div className="d-flex flex-column flex-md-row justify-content-center align-items-md-center">
+      <div className="d-flex flex-column flex-md-row justify-content-center align-items-md-center my-3">
         <div className="d-flex justify-content-center">
           <DatePicker
             selected={startDate}
@@ -131,11 +131,10 @@ const EncuestasPorMes = () => {
       {encuestas && <CalculoNPS data={encuestas} />}
 
       {encuestas && (
-        <div className="mx-0 row d-flex justify-content-center">
-          <LineChartDay
-            className="col-lg-8 col-12 mx-auto"
-            data={calculateNPSByDay()}
-          />
+        <div className="row d-flex justify-content-center mx-0">
+          <div className="col-lg-10 col-12 mx-0">
+            <LineChartDay data={calculateNPSByDay()} />
+          </div>
         </div>
       )}
     </div>

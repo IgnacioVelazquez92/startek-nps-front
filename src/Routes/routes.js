@@ -1,11 +1,17 @@
 import SearchByEmail from "../components/BusquedaPorEmail/SearchByEmail";
-import Home from "../components/Home/Home";
+import Cuenta from "../components/Cuenta/Cuenta";
 import SearchByU from "../components/BusquedaPorU/SearchByU";
+import Home from "../components/Home/Home";
 
 const routes = [
   {
     path: "/",
     Element: Home,
+  },
+
+  {
+    path: "/cuenta",
+    Element: Cuenta,
   },
   {
     path: "/email",
@@ -14,6 +20,9 @@ const routes = [
   {
     path: "/user",
     Element: SearchByU,
+  },
+  {
+    path: "/*",
   },
 ];
 
