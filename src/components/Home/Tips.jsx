@@ -1,82 +1,14 @@
-// import React from "react";
-// import("./Tips");
-
-// const Tips = () => {
-//   const tips = [
-//     {
-//       tipo: "success",
-//       title: "Speech encuesta",
-//       tip: "Te recomendamos utilizar la información que tengas para adaptar tu speech con cada cliente, teniendo de base algún genérico",
-//       speech:
-//         ".. si no te quedo ninguna otra duda o consulta te recuerdo que al mail xxx@mail.com en 24 horas tendrás disponible una breve encuesta donde podrás calificar que tanto recomiendas el servicio de acuerdo a mi atención, me ayuda tu respuesta para seguir mejorando.",
-//     },
-//   ];
-
-//   return (
-//     <>
-//       <h3 className="my-3 text-center">Tips para mejorar la eficacia NPS</h3>
-//       <div className="container d-lg-flex gap-3">
-//         {tips.map((tip) => {
-//           return (
-//             <div className={`d-flex p-5 border rounded-5 bg-${tip.tipo}`}>
-//               <div className=" col-4 bs-success-bg-subtle">
-//                 <h2 className="h5 p-2 text-light">{tip.title}</h2>
-
-//                 <button
-//                   type="button"
-//                   className="btn btn-primary"
-//                   data-bs-toggle="modal"
-//                   data-bs-target="#exampleModal"
-//                 >
-//                   Launch demo modal
-//                 </button>
-
-//                 <div
-//                   className="modal fade"
-//                   id="exampleModal"
-//                   tabIndex="-1"
-//                   aria-labelledby="exampleModalLabel"
-//                   aria-hidden="true"
-//                 >
-//                   <div className="modal-dialog">
-//                     <div className="modal-content">
-//                       <div className="modal-header">
-//                         <h1 className="modal-title fs-5" id="exampleModalLabel">
-//                           Modal title
-//                         </h1>
-//                         <button
-//                           type="button"
-//                           className="btn-close"
-//                           data-bs-dismiss="modal"
-//                           aria-label="Close"
-//                         ></button>
-//                       </div>
-//                       <div className="modal-body">{tip.tip}</div>
-//                       <div className="modal-footer">
-//                         <audio src=""></audio>
-//                       </div>
-//                     </div>
-//                   </div>
-//                 </div>
-//               </div>
-//             </div>
-//           );
-//         })}
-//       </div>
-//     </>
-//   );
-// };
-
-// export default Tips;
-
-import React from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import React, { useState } from "react";
 
 const Tips = () => {
   const tips = [
     {
       tipo: "success",
       title: "Speech encuesta",
-      tip: "Te recomendamos utilizar la información que tengas para adaptar tu speech con cada cliente, teniendo de base algún genérico",
+      importancia:
+        "Adapta tu enfoque al hablar con los clientes. Informa que tendrán una encuesta de NPS disponible 24 horas después de su llamada e incentiva la pronta respuesta para evitar mezclar experiencias. Personaliza el speech según su historial de encuestas o no encuestas. Verifica los correos, ya que errores impedirán la entrega de la misma. Tu compromiso asegura evaluaciones precisas y valiosas.",
       speech:
         ".. si no te quedó ninguna otra duda o consulta, te recuerdo que al correo xxx@mail.com en 24 horas tendrás disponible una breve encuesta donde podrás calificar qué tanto recomiendas el servicio de acuerdo a mi atención. Tu respuesta me ayuda a seguir mejorando.",
     },
@@ -84,7 +16,8 @@ const Tips = () => {
     {
       tipo: "success",
       title: "Speech encuesta",
-      tip: "Te recomendamos utilizar la información que tengas para adaptar tu speech con cada cliente, teniendo de base algún genérico",
+      importancia:
+        "Te recomendamos utilizar la información que tengas para adaptar tu speech con cada cliente, teniendo de base algún genérico",
       speech:
         ".. si no te quedó ninguna otra duda o consulta, te recuerdo que al correo xxx@mail.com en 24 horas tendrás disponible una breve encuesta donde podrás calificar qué tanto recomiendas el servicio de acuerdo a mi atención. Tu respuesta me ayuda a seguir mejorando.",
     },
@@ -92,63 +25,123 @@ const Tips = () => {
     {
       tipo: "danger",
       title: "Speech encuesta",
-      tip: "Te recomendamos utilizar la información que tengas para adaptar tu speech con cada cliente, teniendo de base algún genérico",
+      importancia:
+        "Te recomendamos utilizar la información que tengas para adaptar tu speech con cada cliente, teniendo de base algún genérico",
       speech:
         ".. si no te quedó ninguna otra duda o consulta, te recuerdo que al correo xxx@mail.com en 24 horas tendrás disponible una breve encuesta donde podrás calificar qué tanto recomiendas el servicio de acuerdo a mi atención. Tu respuesta me ayuda a seguir mejorando.",
     },
+    {
+      tipo: "danger",
+      title: "Speech encuesta",
+      importancia:
+        "Te recomendamos utilizar la información que tengas para adaptar tu speech con cada cliente, teniendo de base algún genérico",
+      speech:
+        ".. si no te quedó ninguna otra duda o consulta, te recuerdo que al correo xxx@mail.com en 24 horas tendrás disponible una breve encuesta donde podrás calificar qué tanto recomiendas el servicio de acuerdo a mi atención. Tu respuesta me ayuda a seguir mejorando.",
+    },
+    {
+      tipo: "danger",
+      title: "Speech encuesta",
+      importancia:
+        "Te recomendamos utilizar la información que tengas para adaptar tu speech con cada cliente, teniendo de base algún genérico",
+      speech:
+        ".. si no te quedó ninguna otra duda o consulta, te recuerdo que al correo xxx@mail.com en 24 horas tendrás disponible una breve encuesta donde podrás calificar qué tanto recomiendas el servicio de acuerdo a mi atención. Tu respuesta me ayuda a seguir mejorando.",
+    },
+    {
+      tipo: "danger",
+      title: "Speech encuesta",
+      importancia:
+        "Te recomendamos utilizar la información que tengas para adaptar tu speech con cada cliente, teniendo de base algún genérico",
+      speech:
+        ".. si no te quedó ninguna otra duda o consulta, te recuerdo que al correo xxx@mail.com en 24 horas tendrás disponible una breve encuesta donde podrás calificar qué tanto recomiendas el servicio de acuerdo a mi atención. Tu respuesta me ayuda a seguir mejorando.",
+    },
+    {
+      tipo: "danger",
+      title: "Speech encuesta",
+      importancia:
+        "Te recomendamos utilizar la información que tengas para adaptar tu speech con cada cliente, teniendo de base algún genérico",
+      speech:
+        ".. si no te quedó ninguna otra duda o consulta, te recuerdo que al correo xxx@mail.com en 24 horas tendrás disponible una breve encuesta donde podrás calificar qué tanto recomiendas el servicio de acuerdo a mi atención. Tu respuesta me ayuda a seguir mejorando.",
+    },
+
     // Puedes agregar más tips y speechs aquí
   ];
 
+  //   const [show, setShow] = useState(false);
+
+  //   const handleClose = () => setShow(false);
+  //   const handleShow = () => setShow(true);
+
+  //   return (
+  //     <>
+  //       <h3 className="my-3 text-center">En construcción</h3>
+  //       <div className="container d-lg-flex gap-3">
+  //         {tips.map((tip, index) => (
+  //           <div key={index} className={`p-5 border rounded-5 bg-${tip.tipo}`}>
+  //             <div className=" d-flex align-items-center">
+  //               <h2 className="h5 p-2 text-light">{tip.title}</h2>
+
+  //               <Button variant="light" onClick={handleShow}>
+  //                 Ver más
+  //               </Button>
+
+  //               <Modal show={show} size={"lg"} onHide={handleClose}>
+  //                 <Modal.Header closeButton>
+  //                   <Modal.Title>{tip.title}</Modal.Title>
+  //                 </Modal.Header>
+  //                 <Modal.Body>
+  //                   <h4>{tip.importancia}</h4>
+  //                   <h5 className="text-center">ejemplo:</h5>
+  //                   <p>"{tip.speech}"</p>
+  //                 </Modal.Body>
+  //                 <Modal.Footer></Modal.Footer>
+  //               </Modal>
+  //             </div>
+  //           </div>
+  //         ))}
+  //       </div>
+  //     </>
+  //   );
+  // };
+
+  // export default Tips;
+
+  const [selectedTipIndex, setSelectedTipIndex] = useState(-1);
+
+  const handleClose = () => setSelectedTipIndex(-1);
+  const handleShow = (index) => setSelectedTipIndex(index);
+
   return (
     <>
-      <h3 className="my-3 text-center">En construcción</h3>
-      <div className="container d-lg-flex gap-3">
+      <div className="container d-lg-flex gap-3 my-3 flex-wrap">
         {tips.map((tip, index) => (
           <div key={index} className={`p-5 border rounded-5 bg-${tip.tipo}`}>
             <div className=" d-flex align-items-center">
               <h2 className="h5 p-2 text-light">{tip.title}</h2>
-
-              <button
-                type="button"
-                className="btn btn-light"
-                data-bs-toggle={`modal-${index}`}
-                data-bs-target={`#exampleModal-${index}`}
-              >
+              <Button variant="light" onClick={() => handleShow(index)}>
                 Ver más
-              </button>
-
-              <div
-                className="modal fade"
-                id={`exampleModal-${index}`}
-                tabIndex="-1"
-                aria-labelledby={`exampleModalLabel-${index}`}
-                aria-hidden="true"
-              >
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <div className="modal-header">
-                      <h1
-                        className="modal-title fs-5"
-                        id={`exampleModalLabel-${index}`}
-                      >
-                        {tip.title}
-                      </h1>
-                      <button
-                        type="button"
-                        className="btn-close"
-                        data-bs-dismiss={`modal-${index}`}
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                    <div className="modal-body">{tip.tip}</div>
-                    {/* Puedes agregar el reproductor de audio aquí */}
-                  </div>
-                </div>
-              </div>
+              </Button>
             </div>
           </div>
         ))}
       </div>
+
+      {selectedTipIndex !== -1 && (
+        <Modal show={true} onHide={handleClose} size={"lg"}>
+          <Modal.Header closeButton>
+            <Modal.Title>{tips[selectedTipIndex].title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="fst-italic">
+            <h4>{tips[selectedTipIndex].importancia}</h4>
+            <h5 className="text-center">ejemplo:</h5>
+            <p>"{tips[selectedTipIndex].speech}"</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Cerrar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
     </>
   );
 };
