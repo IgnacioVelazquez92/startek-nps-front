@@ -93,7 +93,7 @@ const EncuestasPorMes = () => {
   return (
     <div>
       <div className="d-flex flex-column flex-md-row justify-content-center align-items-md-center my-3">
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center gap-3">
           <DatePicker
             selected={startDate}
             onChange={(date) => handleDateChange(date, "from")}
@@ -121,12 +121,13 @@ const EncuestasPorMes = () => {
         <div className="d-flex justify-content-center">
           <button
             onClick={getEncuestasPorRangoFechas}
-            className="btn btn-outline-primary btn-lg mb-2"
+            className="btn btn-outline-primary btn-lg ms-2 mb-2"
           >
-            Calcular NPS
+            Calcular
           </button>
         </div>
       </div>
+
       {loading && <Loader className="mx-auto" />}
       {encuestas && <CalculoNPS data={encuestas} />}
 
