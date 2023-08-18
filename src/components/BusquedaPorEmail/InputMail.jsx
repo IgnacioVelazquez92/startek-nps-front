@@ -25,7 +25,6 @@ const InputMail = () => {
       const response = await apiClient.getNpsbyEmail(email);
       if (response) {
         setEncuestas(response.data);
-        console.log(response.data);
       } else {
         setEncuestas([]);
       }
@@ -53,7 +52,7 @@ const InputMail = () => {
           id="email"
           onChange={handleChange}
           required
-          pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+          pattern="^[^@]+@[^@]+\.[a-zA-Z]{2,}$"
         />
 
         <Button variant="primary" type="submit" className="ms-2">
