@@ -28,20 +28,30 @@ function Login() {
       <Row className="mb-3">
         <Form.Group as={Col} md="12" controlId="validationCustom01">
           <Form.Label>Usuario</Form.Label>
-          <Form.Control required type="text" placeholder="Usuario u" />
+          <Form.Control
+            required
+            type="text"
+            placeholder="Usuario u"
+            pattern="u615159"
+          />
           <Form.Control.Feedback>Hecho!</Form.Control.Feedback>
           <Form.Control.Feedback type="invalid">
-            Ingrese usuario valido
+            Ud no es administrador
           </Form.Control.Feedback>
         </Form.Group>
       </Row>
       <Row className="mb-3">
         <Form.Group as={Col} md="12" controlId="validationCustom02">
           <Form.Label>Contraseña</Form.Label>
-          <Form.Control required type="password" placeholder="Contraseña" />
+          <Form.Control
+            required
+            type="password"
+            placeholder="Contraseña"
+            pattern="^(?=.*[A-Z])(?=.*\d)(?=.*\*).{7,}$"
+          />
           <Form.Control.Feedback>Hecho</Form.Control.Feedback>
           <Form.Control.Feedback type="invalid">
-            +6 caracteres
+            Ud no es administrador
           </Form.Control.Feedback>
         </Form.Group>
       </Row>
