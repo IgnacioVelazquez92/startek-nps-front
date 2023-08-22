@@ -65,7 +65,7 @@ const CalculoNPS = ({ data }) => {
 
   return (
     <>
-      <h1 className="text-center">Resultados:</h1>
+      <h3 className="text-center">Resultados:</h3>
       <div className="d-lg-flex justify-content-evenly container gap-3">
         <table className="table table-hover my-3 responsive container table-bordered ">
           <tbody>

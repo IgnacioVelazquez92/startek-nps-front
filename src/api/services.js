@@ -31,4 +31,8 @@ export class ApiClient {
   async getNpsbyDateAndU(fechaYU) {
     return this.client.post(`/get-by-date-user`, fechaYU);
   }
+
+  async getNpsbyDateAndULider(fechaYU) {
+    return this.client.post(`/get-by-lider`, fechaYU);
+  }
 }

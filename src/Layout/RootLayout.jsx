@@ -1,19 +1,17 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import NavbarNPS from '../components/Navbar/NavbarNPS'
-
+import React from "react";
+import { Outlet } from "react-router-dom";
+import "./layaout.css";
+import Sidebar from "../components/Navbar/Sidebar";
 
 const RootLayout = () => {
-
-
   return (
-    <div className='root-layout'>
-      <NavbarNPS className='container-fluid'/>
-      <main>
-          <Outlet /> 
+    <div className="root-layout">
+      <Sidebar />
+      <main className="main p-0">
+        <Outlet />
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default RootLayout
+export default RootLayout;

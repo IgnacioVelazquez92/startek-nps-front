@@ -1,0 +1,9 @@
+.root-layout{
+  display: flex;
+}
+
+.main {
+  flex: 1; /* Hace que el contenido principal ocupe el espacio restante */
+  margin-left: 280px; /* Asegura que el contenido principal esté a la derecha del Sidebar */
+  padding: 20px;
+}

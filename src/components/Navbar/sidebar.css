@@ -1,0 +1,27 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh; /* Altura del Sidebar (100% del viewport height) */
+  width: 280px; /* Ancho del Sidebar */
+  background-color: #343a40; /* Color de fondo */
+  color: white;
+  padding: 20px;
+  z-index: 1000; /* Asegurarse de que el Sidebar esté por encima del contenido principal */
+}
+
+
+
+.sidebar__link:hover{
+  background: #000;
+}
+
+.sidebar__link:active{
+
+  background-color:#f06bab;
+
+}
+
+.nav-link.active {
+  background-color: #ea2985 !important;
+}

@@ -2,6 +2,7 @@ import SearchByEmail from "../components/BusquedaPorEmail/SearchByEmail";
 import Cuenta from "../components/Cuenta/Cuenta";
 import SearchByU from "../components/BusquedaPorU/SearchByU";
 import Home from "../components/Home/Home";
+import Lider from "../components/Lider/Lider";
 
 const routes = [
   {
@@ -20,6 +21,10 @@ const routes = [
   {
     path: "/user",
     Element: SearchByU,
+  },
+  {
+    path: "/lider",
+    Element: Lider,
   },
   {
     path: "/*",
