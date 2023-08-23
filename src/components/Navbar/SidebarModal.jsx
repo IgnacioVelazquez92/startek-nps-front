@@ -21,10 +21,17 @@ function SidemarModal() {
             alt=""
             width="32"
             height="32"
-            className="rounded-circle me-2"
+            className="rounded-circle me-2 d-none d-md-block"
           />
           <button className="btn text-light" onClick={handleShow}>
-            <strong>Admin</strong>
+            <strong className="text-light d-none d-md-block">Admin</strong>
+            <img
+              src="https://avatars.githubusercontent.com/u/69434969?v=4"
+              alt=""
+              width="32"
+              height="32"
+              className="rounded-circle me-2 d-block d-md-none"
+            />
           </button>
         </a>
       </div>

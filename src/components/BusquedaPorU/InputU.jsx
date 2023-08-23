@@ -135,16 +135,9 @@ const InputUsuarioU = () => {
           </div>
         </div>
       </form>
-      {loading ? (
-        <Loader />
-      ) : encuestas ? (
-        <div>
-          <CalculoNPS data={encuestas} />
-          <TablaPorU encuestas={encuestas} />
-        </div>
-      ) : (
-        <p>no se encontraron datos</p>
-      )}
+      {loading && <Loader className="mx-auto" />}
+      <CalculoNPS data={encuestas} />
+      {encuestas.length !== 0 && <TablaPorU encuestas={encuestas} />}
     </>
   );
 };

@@ -88,8 +88,6 @@ const EncuestasPorMes = () => {
     return npsPorDia;
   };
 
-  console.log(calculateNPSByDay());
-
   return (
     <div>
       <div className="d-flex flex-column flex-md-row justify-content-center align-items-md-center my-3">

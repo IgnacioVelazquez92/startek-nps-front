@@ -55,16 +55,16 @@ const TablaAgentes = ({ encuestas }) => {
             <th className="h4">Agente</th>
             <th className="h4">Total</th>
             <th>
-              <i className="bi bi-emoji-smile h4 fw-bold"></i>
+              <i className="bi bi-emoji-smile text-success h4 fw-bold"></i>
             </th>
             <th>
-              <i className="bi bi-emoji-neutral h4 fw-bold"></i>
+              <i className="bi bi-emoji-neutral text-warning h4 fw-bold"></i>
             </th>
 
             <th>
-              <i className="bi bi-emoji-expressionless h4 fw-bold"></i>
+              <i className="bi bi-emoji-angry text-danger h4 fw-bold"></i>
             </th>
-            <th className="h4 fw-bold">NPS</th>
+            <th className="h4 fw-bold ">NPS</th>
           </tr>
         </thead>
         <tbody>

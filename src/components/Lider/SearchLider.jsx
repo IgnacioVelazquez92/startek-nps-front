@@ -4,6 +4,7 @@ import { ApiClient } from "../../api/services";
 import Loader from "../Loader/Loader";
 import CalculoNPS from "../Charts/CalculoNPS";
 import TablaAgentes from "./TablaAgentes";
+import NpsByDay from "./NpsByDay";
 
 const SearchLider = () => {
   const apiClient = new ApiClient();
@@ -66,18 +67,15 @@ const SearchLider = () => {
         U_LIDER: formData.U_LIDER,
       };
 
-      console.log(fechaYU);
       const response = await apiClient.getNpsbyDateAndULider(fechaYU);
       setEncuestas(response.data);
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
-      console.log(encuestas);
     }
   };
 
-  console.log(encuestas);
   return (
     <>
       <form
@@ -137,7 +135,9 @@ const SearchLider = () => {
       </form>
       {loading && <Loader className="mx-auto" />}
       <CalculoNPS data={encuestas} />
-      {encuestas && <TablaAgentes encuestas={encuestas} />}
+      {encuestas.length !== 0 && <TablaAgentes encuestas={encuestas} />}
+      <h3 className="my-3 text-center">NPS por día</h3>
+      {encuestas && <NpsByDay encuestas={encuestas} />}
     </>
   );
 };
