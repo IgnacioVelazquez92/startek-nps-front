@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const TablaAgentes = ({ encuestas }) => {
+  console.log(encuestas);
   const calcularTotalesYnps = (encuestas) => {
     const agenteEncuestaCount = {};
     const agentePromotorCount = {};
@@ -52,6 +53,7 @@ const TablaAgentes = ({ encuestas }) => {
       <table className="table table-hover border-bottom border-dark">
         <thead>
           <tr>
+            <th className="h4">Usuario</th>
             <th className="h4">Agente</th>
             <th className="h4">Total</th>
             <th>
@@ -70,6 +72,7 @@ const TablaAgentes = ({ encuestas }) => {
         <tbody>
           {Object.keys(agenteNPS).map((agente) => (
             <tr key={agente}>
+              <td>{encuestas.find((item) => item.RAC === agente).UsuarioU}</td>
               <td>{agente}</td>
               <td>{agenteNPS[agente].total}</td>
               <td>{agenteNPS[agente].promotores}</td>
