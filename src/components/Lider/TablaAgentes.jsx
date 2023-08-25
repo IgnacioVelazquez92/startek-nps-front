@@ -12,13 +12,15 @@ const TablaAgentes = ({ encuestas }) => {
     encuestas.forEach((encuesta) => {
       const agente = encuesta.RAC;
 
-      agenteEncuestaCount[agente] = (agenteEncuestaCount[agente] || 0) + 1;
+      if (encuesta.NPS_Calification >= 0) {
+        agenteEncuestaCount[agente] = (agenteEncuestaCount[agente] || 0) + 1;
+      }
 
       if (encuesta.NPS_GROUP === "Pasivo") {
         agentePasivoCount[agente] = (agentePasivoCount[agente] || 0) + 1;
       } else if (encuesta.NPS_GROUP === "Detractor") {
         agenteDetractorCount[agente] = (agenteDetractorCount[agente] || 0) + 1;
-      } else {
+      } else if (encuesta.NPS_GROUP === "Promotor") {
         agentePromotorCount[agente] = (agentePromotorCount[agente] || 0) + 1;
       }
     });
@@ -27,8 +29,7 @@ const TablaAgentes = ({ encuestas }) => {
       const promotores = agentePromotorCount[agente] || 0;
       const pasivos = agentePasivoCount[agente] || 0;
       const detractores = agenteDetractorCount[agente] || 0;
-      const neutros =
-        agenteEncuestaCount[agente] - promotores - pasivos - detractores;
+
       const nps =
         ((promotores - detractores) / agenteEncuestaCount[agente]) * 100;
 
@@ -36,7 +37,6 @@ const TablaAgentes = ({ encuestas }) => {
         total: agenteEncuestaCount[agente],
         promotores,
         pasivos,
-        neutros,
         detractores,
         nps: nps.toFixed(2), // Redondear a 2 decimales
       };
