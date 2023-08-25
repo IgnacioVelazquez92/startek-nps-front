@@ -82,7 +82,7 @@ const EncuestasPorMes = () => {
       ).length;
       const totalRespuestas = groupedEncuestas[fecha].length;
       const nps = ((promotores - detractores) / totalRespuestas) * 100;
-      npsPorDia.push({ fecha, nps });
+      npsPorDia.push({ fecha, nps, totalRespuestas });
     }
 
     return npsPorDia;

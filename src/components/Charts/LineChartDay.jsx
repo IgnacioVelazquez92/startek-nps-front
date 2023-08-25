@@ -47,6 +47,19 @@ const LineChartDay = ({ data }) => {
         pointBorderColor: "rgba(255, 99, 132)",
         pointBackgroundColor: "rgba(255, 99, 132)",
       },
+      {
+        label: "Q-Encuestas",
+        data: sortedData.map((d) => {
+          return d.totalRespuestas;
+        }),
+        tension: 0.5,
+        fill: true,
+        borderColor: "#2445FF",
+        backgroundColor: "rgb(36, 69, 255, .25)",
+        pointRadius: 5,
+        pointBorderColor: "rgba(36, 69, 255)",
+        pointBackgroundColor: "rgba(36, 69, 255)",
+      },
     ],
   };
 
