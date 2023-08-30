@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import { ApiClient } from "../../api/services";
 import Swal from "sweetalert2";
 import Loader from "../Loader/Loader";
-import UserContext from "../../../context/userContext";
+import UserContext from "../../context/userContext";
 
 function Login({ setShow }) {
   const [validated, setValidated] = useState(false);

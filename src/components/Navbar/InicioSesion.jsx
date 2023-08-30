@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import Dropdown from "react-bootstrap/Dropdown";
-import UserContext from "../../../context/UserContext";
+import UserContext from "../../context/userContext";
 
 const InicioSesion = () => {
   const { user, setUser } = useContext(UserContext);

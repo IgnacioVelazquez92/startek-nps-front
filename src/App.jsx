@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import { routes } from "./Routes/routes";
 import RootLayout from "./Layout/RootLayout";
-import UserContext from "/context/UserContext";
+import UserContext from "./context/userContext";
 import("./App.css");
 import("react-datepicker/dist/react-datepicker.css");
 

@@ -2,7 +2,7 @@ import "./sidebar.css";
 import React, { useContext } from "react";
 import SidemarModal from "./SidebarModal";
 import { Link, NavLink } from "react-router-dom";
-import UserContext from "../../../context/userContext";
+import UserContext from "../../context/userContext";
 import InicioSesion from "./inicioSesion";
 import FeedBack from "./FeedBack";
 
