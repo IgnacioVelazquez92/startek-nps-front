@@ -3,6 +3,7 @@ import Cuenta from "../components/Cuenta/Cuenta";
 import SearchByU from "../components/BusquedaPorU/SearchByU";
 import Home from "../components/Home/Home";
 import Lider from "../components/Lider/Lider";
+import CarruselAdmin from "../components/Firebase/CarruselAdmin";
 
 const routes = [
   {
@@ -25,6 +26,10 @@ const routes = [
   {
     path: "/lider",
     Element: Lider,
+  },
+  {
+    path: "/admin-carrousel",
+    Element: CarruselAdmin,
   },
   {
     path: "/*",

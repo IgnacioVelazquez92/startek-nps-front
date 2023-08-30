@@ -1,10 +1,13 @@
 import "./sidebar.css";
-
-import React from "react";
+import React, { useContext } from "react";
 import SidemarModal from "./SidebarModal";
 import { Link, NavLink } from "react-router-dom";
+import UserContext from "../../../context/userContext";
+import InicioSesion from "./inicioSesion";
+import FeedBack from "./FeedBack";
 
 const Sidebar = () => {
+  const { user } = useContext(UserContext);
   return (
     <div className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark sidebar">
       <Link
@@ -105,9 +108,14 @@ const Sidebar = () => {
             <i className="bi bi-graph-up-arrow me-1 h1"></i>
           </NavLink>
         </li>
+        {user && (
+          <li>
+            <FeedBack />
+          </li>
+        )}
       </ul>
       <hr />
-      <SidemarModal />
+      {!user ? <SidemarModal /> : <InicioSesion user={user} />}
     </div>
   );
 };

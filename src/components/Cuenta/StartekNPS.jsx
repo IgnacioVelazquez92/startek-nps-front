@@ -5,6 +5,7 @@ import { ApiClient } from "../../api/services";
 import CalculoNPS from "../Charts/CalculoNPS";
 import Loader from "../Loader/Loader";
 import LineChartDay from "../Charts/LineChartDay";
+import TablaLider from "./TablaLider";
 
 const EncuestasPorMes = () => {
   const [encuestas, setEncuestas] = useState([]);
@@ -128,10 +129,11 @@ const EncuestasPorMes = () => {
 
       {loading && <Loader className="mx-auto" />}
       {encuestas && <CalculoNPS data={encuestas} />}
-
+      {encuestas.length !== 0 && <TablaLider encuestas={encuestas} />}
       {encuestas && (
-        <div className="d-flex row justify-content-center px-0 mx-0">
-          <div className="px-0 col-11 mx-0">
+        <div className="d-flex row justify-content-center px-2 mx-0">
+          <div className="col-11 mx-0 px-0">
+            <h2 className="text-center my-3">NPS por día</h2>
             <LineChartDay data={calculateNPSByDay()} />
           </div>
         </div>

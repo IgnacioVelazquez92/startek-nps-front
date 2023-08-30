@@ -35,4 +35,8 @@ export class ApiClient {
   async getNpsbyDateAndULider(fechaYU) {
     return this.client.post(`/get-by-lider`, fechaYU);
   }
+
+  async login(FormData) {
+    return this.client.post(`/login`, FormData);
+  }
 }

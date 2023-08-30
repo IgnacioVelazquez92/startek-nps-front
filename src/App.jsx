@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -6,6 +7,7 @@ import {
 } from "react-router-dom";
 import { routes } from "./Routes/routes";
 import RootLayout from "./Layout/RootLayout";
+import UserContext from "../context/UserContext";
 import("./App.css");
 import("react-datepicker/dist/react-datepicker.css");
 
@@ -20,9 +22,22 @@ const router = createBrowserRouter(
 );
 
 function App() {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const savedUser = JSON.parse(localStorage.getItem("user"));
+    if (savedUser) {
+      setUser(savedUser);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
   return (
     <>
-      <RouterProvider router={router} />
+      <UserContext.Provider value={{ user, setUser }}>
+        <RouterProvider router={router} />
+      </UserContext.Provider>
     </>
   );
 }

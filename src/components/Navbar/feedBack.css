@@ -1,0 +1,51 @@
+/* Estilos para el botón y el ícono */
+.toggle-button {
+  outline: 0;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.toggle-button i {
+  transition: transform 1s ease;
+}
+
+/* Estilos para el menú desplegable */
+.menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .64 ease-in-out; /* Transición suave */
+  margin-left: 25px;
+}
+
+.menu.open {
+  max-height: 300px; /* Altura máxima para mostrar los enlaces */
+  transition: max-height .4s ease-in-out; /* Transición suave */
+}
+
+.menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  padding: 0.5rem 0;
+}
+
+/* Estilos para los enlaces */
+.feedback__a {
+  text-decoration: none;
+  margin-left: 10px;
+  color: #fafafa;
+  transition: color 0.15s ease-in-out; 
+  cursor: pointer;
+}
+
+.feedback__a:hover {
+  color: rgb(234, 41, 133);
+}
