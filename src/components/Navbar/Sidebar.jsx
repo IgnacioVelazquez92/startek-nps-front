@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import SidemarModal from "./SidebarModal";
 import { Link, NavLink } from "react-router-dom";
 import UserContext from "../../context/userContext";
-// import InicioSesion from "./InicioSesion";
+import InicioSesion from "./InicioSesion";
 import FeedBack from "./FeedBack";
 
 const Sidebar = () => {
@@ -115,8 +115,7 @@ const Sidebar = () => {
         )}
       </ul>
       <hr />
-      {!user && <SidemarModal />}
-      {/* {!user ? <SidemarModal /> : <InicioSesion user={user} />} */}
+      {!user ? <SidemarModal /> : <InicioSesion user={user} />}
     </div>
   );
 };
