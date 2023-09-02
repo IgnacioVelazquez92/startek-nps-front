@@ -59,7 +59,6 @@ function Login({ setShow }) {
   const handleChangeLog = (e) => {
     const { type, value } = e.target;
     setFormLog({ ...formLog, [type]: value });
-    console.log(formLog);
   };
 
   const changeUserContext = async (response) => {

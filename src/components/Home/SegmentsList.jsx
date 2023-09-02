@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { calculateTimeDifference } from "../Firebase/BuenasPracticas"; // Importa la función de cálculo desde tu otro componente
+import TipsCard from "./TipsCard";
 
 const SegmentsList = ({ dataFromFirestore }) => {
   const uniqueSegments = [
@@ -33,35 +34,14 @@ const SegmentsList = ({ dataFromFirestore }) => {
         <div className="mt-4">
           <h3 className="text-center mt-5">{selectedSegment}</h3>
 
-          <div className="container">
+          <div className="container d-flex flex-wrap justify-content-evenly card-group gap-3">
             {dataFromFirestore
               .filter((item) => item.segmento === selectedSegment)
               .map((item) => (
-                <div className="card text-center my-2" key={item.id}>
-                  <div className="card-header ">{item.titulo}</div>
-                  <div className="card-body">
-                    <h5 className="card-title h5 lh-1">{item.importancia}</h5>
-                    <p className="card-text fst-italic my-3">{item.tips}</p>
-                    <div className="d-flex justify-content-center align-items-center">
-                      <div className="d-flex justify-content-center flex-column align-items-center me-4">
-                        <i className="bi bi-headset h3 my-0"></i>
-                        <span className="text-body-secondary">
-                          {item.nombreAgente}
-                        </span>
-                      </div>
-
-                      <audio controls>
-                        <source src={item.archivoURL} type="audio/mp3" />
-                        Tu navegador no soporta el elemento de audio.
-                      </audio>
-                    </div>
-                  </div>
-                  <div className="card-footer text-body-secondary">
-                    {" "}
-                    {item.nombreLider} hace{" "}
-                    {calculateTimeDifference(item.fecha.toDate())}
-                  </div>
-                </div>
+                <TipsCard
+                  item={item}
+                  calculateTimeDifference={calculateTimeDifference}
+                />
               ))}
           </div>
         </div>

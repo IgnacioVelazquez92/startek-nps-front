@@ -28,7 +28,7 @@ const FeedBack = () => {
             </Link>
           </li>
           <li>
-            <Link className="feedback__a" to="/admin-carrousel">
+            <Link className="feedback__a" to="/admin-procedimientos">
               Procedimientos
             </Link>
           </li>

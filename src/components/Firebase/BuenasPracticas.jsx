@@ -278,7 +278,7 @@ const BuenasPracticas = () => {
                 <span className=" fst-italic">
                   Agregado por {item.nombreLider}
                   <br />
-                  hace: {calculateTimeDifference(item.fecha.toDate())}
+                  hace {calculateTimeDifference(item.fecha.toDate())}
                 </span>
               </div>
             </div>

@@ -6,75 +6,12 @@ import Lider from "../components/Lider/Lider";
 import CarouselAdmin from "../components/Firebase/CarouselAdmin";
 import BuenasPracticas from "../components/Firebase/BuenasPracticas";
 import NotFound from "../components/404/404.jsx";
+import AdminPDFUploader from "../components/Firebase/AdminPDFUploader";
 
 const userString = localStorage.getItem("user");
 const user = JSON.parse(userString);
 const isAuthenticated = user && user.name;
-console.log(isAuthenticated);
 
-// const routes = isAuthenticated
-//   ? [
-//       {
-//         path: "/",
-//         Element: Home,
-//       },
-//       {
-//         path: "/cuenta",
-//         Element: Cuenta,
-//       },
-//       {
-//         path: "/email",
-//         Element: SearchByEmail,
-//       },
-//       {
-//         path: "/user",
-//         Element: SearchByU,
-//       },
-//       {
-//         path: "/lider",
-//         Element: Lider,
-//       },
-//       {
-//         path: "/admin-carrousel",
-//         Element: CarouselAdmin,
-//       },
-//       {
-//         path: "/buenas-practicas",
-//         Element: BuenasPracticas,
-//       },
-//       {
-//         path: "/*",
-//         Element: NotFound,
-//       },
-//     ]
-//   : [
-//       {
-//         path: "/",
-//         Element: Home,
-//       },
-//       {
-//         path: "/cuenta",
-//         Element: Cuenta,
-//       },
-//       {
-//         path: "/email",
-//         Element: SearchByEmail,
-//       },
-//       {
-//         path: "/user",
-//         Element: SearchByU,
-//       },
-//       {
-//         path: "/lider",
-//         Element: Lider,
-//       },
-//       {
-//         path: "/*",
-//         Element: NotFound,
-//       },
-//     ];
-
-// export { routes };
 const protectedRoutes = [
   {
     path: "/admin-carrousel",
@@ -83,6 +20,10 @@ const protectedRoutes = [
   {
     path: "/buenas-practicas",
     Element: BuenasPracticas,
+  },
+  {
+    path: "/admin-procedimientos",
+    Element: AdminPDFUploader,
   },
 ];
 
