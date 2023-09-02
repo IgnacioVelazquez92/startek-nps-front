@@ -23,7 +23,7 @@ const FeedBack = () => {
             </Link>
           </li>
           <li>
-            <Link className="feedback__a" to="/admin-carrousel">
+            <Link className="feedback__a" to="/buenas-practicas">
               Buenas practicas
             </Link>
           </li>

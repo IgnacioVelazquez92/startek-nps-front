@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { fetchImagesFromFirestore } from "../Firebase/configFirebase";
 
 const Carrusel = () => {
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    // Cargar las imágenes almacenadas en Firestore cuando el componente se monta
+    fetchImages();
+  }, []);
+
+  const fetchImages = async () => {
+    try {
+      const imagesData = await fetchImagesFromFirestore(); // Función para obtener las imágenes desde Firestore
+      setImages(imagesData);
+    } catch (error) {
+      console.error("Error al obtener las imágenes:", error);
+    }
+  };
+
   return (
     <div
       id="carouselExampleAutoplaying"
@@ -8,15 +25,18 @@ const Carrusel = () => {
       data-bs-ride="carousel"
     >
       <div className="carousel-inner">
-        <div className="carousel-item active">
-          <img src="/assets/img/1.webp" className="d-block w-100" alt="nps1" />
-        </div>
-        <div className="carousel-item">
-          <img src="/assets/img/2.webp" className="d-block w-100" alt="nps2" />
-        </div>
-        <div className="carousel-item">
-          <img src="/assets/img/3.webp" className="d-block w-100" alt="nps3" />
-        </div>
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`carousel-item ${index === 0 ? "active" : ""}`}
+          >
+            <img
+              src={image.imageURL}
+              className="d-block w-100"
+              alt={image.title}
+            />
+          </div>
+        ))}
       </div>
       <button
         className="carousel-control-prev"
