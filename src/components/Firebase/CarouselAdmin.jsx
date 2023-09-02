@@ -99,7 +99,7 @@ const CarouselAdmin = () => {
   return (
     <div>
       <h2 className="text-center">
-        Formulario de Carga de Imagen en el carrusel
+        Formulario de Carga de Imagen en el carrusel 1580 x 450 tamaño de imagen
       </h2>
       <form onSubmit={handleUpload} className="container px-5">
         <div className="mb-3">

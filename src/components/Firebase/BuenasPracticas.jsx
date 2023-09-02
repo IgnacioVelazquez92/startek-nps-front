@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { saveDataToFirestore, uploadFile } from "./configfirebase";
+import { saveDataToFirestore, uploadFile } from "./configFirebase";
 import {
   getFirestore,
   collection,
