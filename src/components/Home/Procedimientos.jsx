@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { calculateTimeDifference } from "../Firebase/BuenasPracticas";
 import { Modal } from "react-bootstrap";
+import "./TipsCard.css";
 
 const Procedimientos = ({ pdfFromFirestore }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [selectedPdf, setSelectedPdf] = useState(null);
 
   const handleOpenPDFModal = (pdf) => {
-    setSelectedPdf(pdf);
     setModalIsOpen(true);
   };
 
@@ -16,24 +15,24 @@ const Procedimientos = ({ pdfFromFirestore }) => {
       <h2 className="text-center mt-5">Procedimientos a Reforzar</h2>
       <div className="container my-3 px-5 d-flex gap-3 flex-wrap">
         {pdfFromFirestore.map((pdf) => (
-          <div className="col-sm-4 mb-3 mb-sm-0" key={pdf.id}>
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title"> {pdf.titulo}</h5>
-                <p className="card-text h6">{pdf.descripcion}</p>
-                <div className="d-flex justify-content-evenly">
-                  <button
-                    className="btn btn-primary btn-sm"
-                    onClick={() => handleOpenPDFModal(pdf)}
-                  >
-                    Ver PDF
-                  </button>
-                </div>
+          <div className="tips pdftips" key={pdf.id}>
+            <div className="pdftips__titulo">{pdf.titulo}</div>
+            <div className="tips__cuerpo">
+              <div className="pdftips__body">
+                <p className="tips__importancia">{pdf.descripcion}</p>
               </div>
-              <div className="card-footer h6">
-                Agregado por {pdf.nombreLider} hace{" "}
-                {calculateTimeDifference(pdf.fecha.toDate())}
+              <div className="d-flex justify-content-center align-items-center">
+                <button
+                  className="btn-pdf"
+                  onClick={() => handleOpenPDFModal(pdf)}
+                >
+                  Ver PDF
+                </button>
               </div>
+            </div>
+            <div className="pdftips__footer">
+              Agregado por {pdf.nombreLider} hace{" "}
+              {calculateTimeDifference(pdf.fecha.toDate())}
             </div>
             <Modal
               show={modalIsOpen}
