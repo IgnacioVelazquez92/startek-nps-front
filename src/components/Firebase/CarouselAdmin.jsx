@@ -134,7 +134,7 @@ const CarouselAdmin = () => {
       {loading && <Loader />}
 
       <h2 className="text-center mt-4">Imágenes Cargadas</h2>
-      <div className="d-flex gap-3 flex-wrap">
+      <div className="d-flex justify-content-center gap-3 flex-wrap">
         {images.map((image) => (
           <div key={image.id} className="col-lg-3 col-md-4 col-sm-6 mb-4">
             <div className="card">
