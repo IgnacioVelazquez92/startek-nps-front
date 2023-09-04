@@ -7,6 +7,7 @@ import CarouselAdmin from "../components/Firebase/CarouselAdmin";
 import BuenasPracticas from "../components/Firebase/BuenasPracticas";
 import NotFound from "../components/404/404.jsx";
 import AdminPDFUploader from "../components/Firebase/AdminPDFUploader";
+import AdminBase from "../components/Firebase/AdminBase";
 
 const userString = localStorage.getItem("user");
 const user = JSON.parse(userString);
@@ -24,6 +25,10 @@ const protectedRoutes = [
   {
     path: "/admin-procedimientos",
     Element: AdminPDFUploader,
+  },
+  {
+    path: "/admin-base",
+    Element: AdminBase,
   },
 ];
 

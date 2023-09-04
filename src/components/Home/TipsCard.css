@@ -59,6 +59,7 @@
 
 .tips__importancia {
   font-size: 16px;
+  text-align: justify;
 }
 
 .tips__speech {
@@ -137,7 +138,8 @@ audio {
 .pdftips__body {
   max-height: 150px;
   overflow: auto; 
-  padding: 5px;
+  padding: 5px 12px;
+  text-align: justify;
 }
 
 

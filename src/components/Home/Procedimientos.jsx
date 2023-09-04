@@ -13,9 +13,9 @@ const Procedimientos = ({ pdfFromFirestore }) => {
   return (
     <>
       <h2 className="text-center mt-5">Procedimientos a Reforzar</h2>
-      <div className="container my-3 px-5 d-flex gap-3 flex-wrap">
+      <div className="container my-3 px-5 d-flex justify-content-center gap-3 flex-wrap">
         {pdfFromFirestore.map((pdf) => (
-          <div className="tips pdftips" key={pdf.id}>
+          <div className="pdftips" key={pdf.id}>
             <div className="pdftips__titulo">{pdf.titulo}</div>
             <div className="tips__cuerpo">
               <div className="pdftips__body">
@@ -26,7 +26,7 @@ const Procedimientos = ({ pdfFromFirestore }) => {
                   className="btn-pdf"
                   onClick={() => handleOpenPDFModal(pdf)}
                 >
-                  Ver PDF
+                  Ver INFO
                 </button>
               </div>
             </div>

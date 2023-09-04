@@ -116,7 +116,7 @@ const CarouselAdmin = () => {
         </div>
         <div className="mb-3">
           <label htmlFor="titleInput" className="form-label">
-            Título de la imagen (opcional)
+            Título de la imagen
           </label>
           <input
             type="text"
@@ -124,6 +124,7 @@ const CarouselAdmin = () => {
             id="titleInput"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            required
           />
         </div>
         <button type="submit" className="btn btn-primary">
@@ -142,7 +143,7 @@ const CarouselAdmin = () => {
                 className="card-img-top"
                 alt={image.title}
               />
-              <div className="card-body">
+              <div className="card-body text-center">
                 <h5 className="card-title">{image.title}</h5>
                 <button
                   className="btn btn-danger"

@@ -57,7 +57,7 @@ const BuenasPracticas = () => {
           await saveDataToFirestore(data);
         } else {
           // Si hay una ID de edición, actualiza el registro existente
-          const { id, ...updatedData } = data;
+          const { id, nombreLider, ...updatedData } = data;
           const db = getFirestore();
           const documentRef = doc(db, "buenas_practicas", editingDataId);
           await updateDoc(documentRef, updatedData);
@@ -158,6 +158,7 @@ const BuenasPracticas = () => {
             id="segmento"
             value={segmento}
             onChange={(e) => setSegmento(e.target.value)}
+            required
           >
             <option value="Continuidad">Continuidad</option>
             <option value="Encuesta">Encuesta</option>
@@ -166,6 +167,8 @@ const BuenasPracticas = () => {
             </option>
             <option value="Manejo de objeciones">Manejo de objeciones</option>
             <option value="Detractor frecuente">Detractor frecuente</option>
+            <option value="Agendas">Agendas</option>
+            <option value="Agendas">Sondeo</option>
           </select>
         </div>
         <div className="mb-3">
@@ -178,6 +181,7 @@ const BuenasPracticas = () => {
             id="titulo"
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
+            required
           />
         </div>
         <div className="mb-3">
@@ -190,6 +194,7 @@ const BuenasPracticas = () => {
             rows="3"
             value={importancia}
             onChange={(e) => setImportancia(e.target.value)}
+            required
           ></textarea>
         </div>
         <div className="mb-3">
@@ -249,18 +254,19 @@ const BuenasPracticas = () => {
       {loading && <Loader />}
       <hr />
       <h2 className="my-4 text-center">Registros existentes</h2>
-      <div className="row">
+      <div className="container my-3 px-5 d-flex gap-3 flex-wrap">
         {dataFromFirestore.map((item) => (
-          <div key={item.id} className="col-lg-4 mb-4">
-            <div className="card text-center">
-              <h4 className="card-header h5">{item.segmento}</h4>
-              <div className="card-body">
-                <h5 className="card-title h5">{item.titulo}</h5>
-                <p className="card-text">{item.importancia}</p>
-                <p className="card-text">{item.tips}</p>
+          <div className="pdftips" key={item.id}>
+            <h2 className="pdftips__titulo">{item.titulo}</h2>
+            <div className="tips__cuerpo">
+              <div className="pdftips__body">
+                <p className="tips__importancia">{item.importancia}</p>
+                <p className="tips__speech">{item.tips}</p>
                 <hr />
-                <p className="card-text">{item.idLlamado}</p>
-                <p className="card-text">{item.nombreAgente}</p>
+                <p className="m-0 p-0">{item.idLlamado}</p>
+                <p className="m-0 p-0">{item.nombreAgente}</p>
+              </div>
+              <div className="d-flex justify-content-center align-items-center mt-2 py-0">
                 <button
                   onClick={() => handleEdit(item)}
                   className="btn btn-primary me-2"
@@ -274,13 +280,11 @@ const BuenasPracticas = () => {
                   Eliminar
                 </button>
               </div>
-              <div className="card-footer">
-                <span className=" fst-italic">
-                  Agregado por {item.nombreLider}
-                  <br />
-                  hace {calculateTimeDifference(item.fecha.toDate())}
-                </span>
-              </div>
+            </div>
+            <div className="pdftips__footer my-0">
+              Agregado por {item.nombreLider}
+              <br />
+              hace {calculateTimeDifference(item.fecha.toDate())}
             </div>
           </div>
         ))}

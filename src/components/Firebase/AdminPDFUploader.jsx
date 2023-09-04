@@ -86,8 +86,18 @@ function AdminPDFUploader() {
       await deletePdfFromFirestore(pdfId);
       // Recargar la lista de PDFs después de eliminar uno
       loadPDFs();
+      Swal.fire({
+        icon: "success",
+        title: "Éxito",
+        text: "Registro eliminado correctamente.",
+      });
     } catch (error) {
       console.error("Error deleting PDF: ", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Hubo un error al eliminar el registro.",
+      });
     }
   };
 
@@ -98,11 +108,11 @@ function AdminPDFUploader() {
 
   return (
     <div className="container mt-4">
-      <h2 className="mb-4">Subir PDF</h2>
+      <h2 className="mb-4">Subir Procedimiento en Formato PDF</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="pdfName" className="form-label">
-            Nombre del PDF:
+            Título:
           </label>
           <input
             type="text"
@@ -148,37 +158,36 @@ function AdminPDFUploader() {
       {pdfs.length === 0 ? (
         <p>No hay PDFs cargados.</p>
       ) : (
-        <div className="row">
+        <div className="container my-3 px-5 d-flex gap-3 flex-wrap">
           {pdfs.map((pdf) => (
-            <div className="col-sm-4 mb-3 mb-sm-0" key={pdf.id}>
-              <div className="card">
-                <div className="card-body">
-                  <h5 className="card-title"> {pdf.titulo}</h5>
-                  <p className="card-text h6">{pdf.descripcion}</p>
-                  <div className="d-flex justify-content-evenly">
-                    <button
-                      className="btn btn-danger btn-sm"
-                      onClick={() => handleDeletePDF(pdf.id)}
-                    >
-                      Eliminar
-                    </button>
-                    <button
-                      className="btn btn-primary btn-sm"
-                      onClick={() => handleOpenPDFModal(pdf)}
-                    >
-                      Ver PDF
-                    </button>
-                  </div>
+            <div className="pdftips" key={pdf.id}>
+              <div className="pdftips__titulo">{pdf.titulo}</div>
+              <div className="tips__cuerpo">
+                <div className="pdftips__body">
+                  <p className="tips__importancia">{pdf.descripcion}</p>
                 </div>
-                <div className="card-footer h6">
-                  <div className="card-footer h6">
-                    {pdf.fecha
-                      ? `Agregado por ${
-                          pdf.nombreLider
-                        } hace ${calculateTimeDifference(pdf.fecha.toDate())}`
-                      : "un instante"}
-                  </div>
+
+                <div className="d-flex justify-content-evenly mt-2">
+                  <button
+                    className="btn btn-danger btn-sm"
+                    onClick={() => handleDeletePDF(pdf.id)}
+                  >
+                    Eliminar
+                  </button>
+                  <button
+                    className="btn btn-primary btn-sm"
+                    onClick={() => handleOpenPDFModal(pdf)}
+                  >
+                    Ver PDF
+                  </button>
                 </div>
+              </div>
+              <div className="pdftips__footer">
+                {pdf.fecha
+                  ? `Agregado por ${
+                      pdf.nombreLider
+                    } hace ${calculateTimeDifference(pdf.fecha.toDate())}`
+                  : "Cargado un instante"}
               </div>
               <Modal
                 show={modalIsOpen}
@@ -189,15 +198,17 @@ function AdminPDFUploader() {
                   <Modal.Title>Vista Previa de PDF</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <iframe src={pdf.archivoURL} frameborder="0"></iframe>
+                  <iframe
+                    src={pdf.archivoURL}
+                    className="container-fluid"
+                    frameborder="0"
+                  ></iframe>
                 </Modal.Body>
               </Modal>
             </div>
           ))}
         </div>
       )}
-
-      {loading && <Loader />}
     </div>
   );
 }
