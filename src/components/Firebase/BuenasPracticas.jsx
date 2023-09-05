@@ -282,9 +282,8 @@ const BuenasPracticas = () => {
               </div>
             </div>
             <div className="pdftips__footer my-0">
-              Agregado por {item.nombreLider}
-              <br />
-              hace {calculateTimeDifference(item.fecha.toDate())}
+              Agregado por {item.nombreLider} hace{" "}
+              {calculateTimeDifference(item.fecha.toDate())}
             </div>
           </div>
         ))}
