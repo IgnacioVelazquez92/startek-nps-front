@@ -1,51 +1,39 @@
 import DatePicker from "react-datepicker";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { ApiClient } from "../../api/services";
 import Loader from "../Loader/Loader";
 import CalculoNPS from "../Charts/CalculoNPS";
 import TablaAgentes from "./TablaAgentes";
 import NpsByDay from "./NpsByDay";
+import LiderContext from "../../context/LiderContext";
 
 const SearchLider = () => {
   const apiClient = new ApiClient();
-  const [formData, setFormData] = useState({
-    startDate: null,
-    endDate: new Date(),
-    U_LIDER: "",
-  });
-  const [encuestas, setEncuestas] = useState([]);
+  const { lider, setLider } = useContext(LiderContext);
+
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    // Configurar la fecha "desde" por defecto al primer día del mes en curso
-    const firstDayOfMonth = new Date(
-      new Date().getFullYear(),
-      new Date().getMonth(),
-      1
-    );
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      startDate: firstDayOfMonth,
-    }));
-  }, []);
-
   const handleDateChange = (date, name) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: date,
-    }));
+    setLider({
+      ...lider,
+      selectedDates: {
+        ...lider.selectedDates,
+        [name]: date,
+      },
+    });
   };
+
+  const firstDayOfMonth = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    1
+  );
 
   const handleChange = (e) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      U_LIDER: e.target.value.toUpperCase(),
-    }));
-  };
-
-  const formatDate = (date) => {
-    const formattedDate = date.toISOString();
-    return formattedDate;
+    setLider({
+      ...lider,
+      liderU: e.target.value.toUpperCase(),
+    });
   };
 
   const handleSubmit = async (event) => {
@@ -53,22 +41,22 @@ const SearchLider = () => {
     event.stopPropagation();
 
     // Verificar que ambas fechas estén seleccionadas
-    if (!formData.startDate || !formData.endDate) return;
+    if (!lider.selectedDates.fromDate || !lider.selectedDates.toDate) return;
 
     setLoading(true);
-    // Formatear las fechas para enviarlas al backend en formato ISO 8601
-    const fromDate = formatDate(formData.startDate);
-    const toDate = formatDate(formData.endDate);
 
     try {
       const fechaYU = {
-        desde: fromDate,
-        hasta: toDate,
-        U_LIDER: formData.U_LIDER,
+        desde: lider.selectedDates.fromDate.toISOString(),
+        hasta: lider.selectedDates.toDate.toISOString(),
+        U_LIDER: lider.liderU,
       };
 
       const response = await apiClient.getNpsbyDateAndULider(fechaYU);
-      setEncuestas(response.data);
+      setLider({
+        ...lider,
+        liderEncuestas: response.data,
+      });
     } catch (error) {
       console.log(error);
     } finally {
@@ -85,11 +73,9 @@ const SearchLider = () => {
         <div className="row g-3">
           <div className="col">
             <DatePicker
-              selected={formData.startDate}
-              onChange={(date) => handleDateChange(date, "startDate")}
+              selected={lider.selectedDates.fromDate || firstDayOfMonth}
+              onChange={(date) => handleDateChange(date, "fromDate")}
               selectsStart
-              startDate={formData.startDate}
-              endDate={formData.endDate}
               dateFormat="dd/MM/yyyy"
               isClearable
               placeholderText="Desde"
@@ -98,12 +84,9 @@ const SearchLider = () => {
           </div>
           <div className="col">
             <DatePicker
-              selected={formData.endDate}
-              onChange={(date) => handleDateChange(date, "endDate")}
+              selected={lider.selectedDates.toDate || new Date()}
+              onChange={(date) => handleDateChange(date, "toDate")}
               selectsEnd
-              startDate={formData.startDate}
-              endDate={formData.endDate}
-              minDate={formData.startDate}
               dateFormat="dd/MM/yyyy"
               isClearable
               placeholderText="Hasta"
@@ -116,7 +99,7 @@ const SearchLider = () => {
           <div className="col-9">
             <input
               type="text"
-              value={formData.usuarioU}
+              value={lider.liderU}
               onChange={handleChange}
               className="form-control form-control-lg"
               placeholder="Ingresa tu usuario U"
@@ -134,10 +117,12 @@ const SearchLider = () => {
         </div>
       </form>
       {loading && <Loader className="mx-auto" />}
-      <CalculoNPS data={encuestas} />
-      {encuestas.length !== 0 && <TablaAgentes encuestas={encuestas} />}
+      <CalculoNPS data={lider.liderEncuestas} />
+      {lider.liderEncuestas && lider.liderEncuestas.length !== 0 && (
+        <TablaAgentes encuestas={lider.liderEncuestas} />
+      )}
       <h3 className="my-3 text-center">NPS por día</h3>
-      {encuestas && <NpsByDay encuestas={encuestas} />}
+      {lider.liderEncuestas && <NpsByDay encuestas={lider.liderEncuestas} />}
     </>
   );
 };

@@ -1,74 +1,61 @@
+import React, { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
-import React, { useState, useEffect } from "react";
 import { ApiClient } from "../../api/services";
 import TablaPorU from "./TablaPorU";
 import Loader from "../Loader/Loader";
 import CalculoNPS from "../Charts/CalculoNPS";
+import AgentContext from "../../context/AgentContext";
 
 const InputUsuarioU = () => {
   const apiClient = new ApiClient();
-  const [formData, setFormData] = useState({
-    startDate: null,
-    endDate: new Date(),
-    usuarioU: "",
-  });
-  const [encuestas, setEncuestas] = useState([]);
+  const { agente, setAgente } = useContext(AgentContext);
+
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    // Configurar la fecha "desde" por defecto al primer día del mes en curso
-    const firstDayOfMonth = new Date(
-      new Date().getFullYear(),
-      new Date().getMonth(),
-      1
-    );
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      startDate: firstDayOfMonth,
-    }));
-  }, []);
-
   const handleDateChange = (date, name) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: date,
-    }));
+    setAgente({
+      ...agente,
+      selectedDates: {
+        ...agente.selectedDates,
+        [name]: date,
+      },
+    });
   };
 
   const handleChange = (e) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      usuarioU: e.target.value.toUpperCase(),
-    }));
+    setAgente({
+      ...agente,
+      agenteU: e.target.value.toUpperCase(),
+    });
   };
 
-  const formatDate = (date) => {
-    const formattedDate = date.toISOString();
-    return formattedDate;
-  };
+  const firstDayOfMonth = new Date(
+    new Date().getFullYear(),
+    new Date().getMonth(),
+    1
+  );
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     event.stopPropagation();
 
-    // Verificar que ambas fechas estén seleccionadas
-    if (!formData.startDate || !formData.endDate) return;
+    if (!agente.selectedDates.fromDate || !agente.selectedDates.toDate) return;
 
     setLoading(true);
-    // Formatear las fechas para enviarlas al backend en formato ISO 8601
-    const fromDate = formatDate(formData.startDate);
-    const toDate = formatDate(formData.endDate);
 
     try {
       const fechaYU = {
-        desde: fromDate,
-        hasta: toDate,
-        usuarioU: formData.usuarioU,
+        desde: agente.selectedDates.fromDate.toISOString(),
+        hasta: agente.selectedDates.toDate.toISOString(),
+        usuarioU: agente.agenteU,
       };
 
       console.log(fechaYU);
       const response = await apiClient.getNpsbyDateAndU(fechaYU);
-      setEncuestas(response.data);
+      setAgente({
+        ...agente,
+        agenteEncuestas: response.data,
+      });
 
       console.log(response.data);
     } catch (error) {
@@ -87,11 +74,9 @@ const InputUsuarioU = () => {
         <div className="row g-3">
           <div className="col">
             <DatePicker
-              selected={formData.startDate}
-              onChange={(date) => handleDateChange(date, "startDate")}
+              selected={agente.selectedDates.fromDate || firstDayOfMonth}
+              onChange={(date) => handleDateChange(date, "fromDate")}
               selectsStart
-              startDate={formData.startDate}
-              endDate={formData.endDate}
               dateFormat="dd/MM/yyyy"
               isClearable
               placeholderText="Desde"
@@ -100,12 +85,9 @@ const InputUsuarioU = () => {
           </div>
           <div className="col">
             <DatePicker
-              selected={formData.endDate}
-              onChange={(date) => handleDateChange(date, "endDate")}
+              selected={agente.selectedDates.toDate || new Date()}
+              onChange={(date) => handleDateChange(date, "toDate")}
               selectsEnd
-              startDate={formData.startDate}
-              endDate={formData.endDate}
-              minDate={formData.startDate}
               dateFormat="dd/MM/yyyy"
               isClearable
               placeholderText="Hasta"
@@ -113,12 +95,11 @@ const InputUsuarioU = () => {
             />
           </div>
         </div>
-
         <div className="row g-3">
           <div className="col-9">
             <input
               type="text"
-              value={formData.usuarioU}
+              value={agente.agenteU}
               onChange={handleChange}
               className="form-control form-control-lg"
               placeholder="Ingresa tu usuario U"
@@ -127,7 +108,6 @@ const InputUsuarioU = () => {
               required
             />
           </div>
-
           <div className="col-3">
             <button type="submit" className="btn btn-outline-primary btn-lg">
               Calcular
@@ -136,8 +116,10 @@ const InputUsuarioU = () => {
         </div>
       </form>
       {loading && <Loader className="mx-auto" />}
-      <CalculoNPS data={encuestas} />
-      {encuestas.length !== 0 && <TablaPorU encuestas={encuestas} />}
+      <CalculoNPS data={agente.agenteEncuestas} />
+      {agente.agenteEncuestas && agente.agenteEncuestas.length !== 0 && (
+        <TablaPorU encuestas={agente.agenteEncuestas} />
+      )}
     </>
   );
 };

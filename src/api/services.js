@@ -39,4 +39,8 @@ export class ApiClient {
   async login(FormData) {
     return this.client.post(`/login`, FormData);
   }
+
+  async baseData(formData) {
+    return this.client.post(`/base-encuestas`, formData);
+  }
 }
