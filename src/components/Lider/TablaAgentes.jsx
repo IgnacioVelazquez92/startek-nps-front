@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 const TablaAgentes = ({ encuestas }) => {
-  console.log(encuestas);
   const calcularTotalesYnps = (encuestas) => {
     const agenteEncuestaCount = {};
     const agentePromotorCount = {};
@@ -12,7 +11,10 @@ const TablaAgentes = ({ encuestas }) => {
     encuestas.forEach((encuesta) => {
       const agente = encuesta.RAC;
 
-      if (encuesta.NPS_Calification >= 0) {
+      if (
+        encuesta.NPS_Calification >= 0 &&
+        encuesta.NPS_Calification !== null
+      ) {
         agenteEncuestaCount[agente] = (agenteEncuestaCount[agente] || 0) + 1;
       }
 

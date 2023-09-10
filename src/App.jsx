@@ -11,6 +11,7 @@ import UserContext from "./context/userContext";
 import Abncontext from "./context/Abncontext";
 import LiderContext from "./context/LiderContext";
 import AgentContext from "./context/AgentContext";
+import CuentaContext from "./context/CuentaContext";
 import("./App.css");
 import("react-datepicker/dist/react-datepicker.css");
 
@@ -43,7 +44,13 @@ function App() {
       toDate: new Date(),
     },
   });
-  const [cuenta, setCuenta] = useState(null);
+  const [cuenta, setCuenta] = useState({
+    cuentaEncuestas: [],
+    selectedDates: {
+      fromDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+      toDate: new Date(),
+    },
+  });
 
   useEffect(() => {
     const savedUser = JSON.parse(localStorage.getItem("user"));
@@ -58,13 +65,15 @@ function App() {
   return (
     <>
       <UserContext.Provider value={{ user, setUser }}>
-        <LiderContext.Provider value={{ lider, setLider }}>
-          <AgentContext.Provider value={{ agente, setAgente }}>
-            <Abncontext.Provider value={{ cliente, setCliente }}>
-              <RouterProvider router={router} />
-            </Abncontext.Provider>
-          </AgentContext.Provider>
-        </LiderContext.Provider>
+        <CuentaContext.Provider value={{ cuenta, setCuenta }}>
+          <LiderContext.Provider value={{ lider, setLider }}>
+            <AgentContext.Provider value={{ agente, setAgente }}>
+              <Abncontext.Provider value={{ cliente, setCliente }}>
+                <RouterProvider router={router} />
+              </Abncontext.Provider>
+            </AgentContext.Provider>
+          </LiderContext.Provider>
+        </CuentaContext.Provider>
       </UserContext.Provider>
     </>
   );

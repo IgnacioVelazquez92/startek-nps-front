@@ -11,7 +11,10 @@ const TablaAgentes = ({ encuestas }) => {
     encuestas.forEach((encuesta) => {
       const lider = encuesta.LIDER;
 
-      if (encuesta.NPS_Calification >= 0) {
+      if (
+        encuesta.NPS_Calification >= 0 &&
+        encuesta.NPS_Calification !== null
+      ) {
         liderEncuestaCount[lider] = (liderEncuestaCount[lider] || 0) + 1;
       }
 
