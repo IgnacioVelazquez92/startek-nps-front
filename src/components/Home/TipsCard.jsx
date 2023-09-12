@@ -24,7 +24,7 @@ const TipsCard = ({ item, calculateTimeDifference }) => {
         </div>
       </div>
       <div className="tips__footer">
-        {item.nombre
+        {item.fecha
           ? `
         Agregado por ${item.nombreLider} hace ${" "}
         ${calculateTimeDifference(item.fecha.toDate())}`
