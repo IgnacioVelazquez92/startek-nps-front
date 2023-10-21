@@ -36,14 +36,15 @@ const EncuestasPorMes = () => {
 
     try {
       const objetoFecha = {
-        desde: formatDate(cuenta.selectedDates.fromDate),
-        hasta: formatDate(cuenta.selectedDates.toDate),
+        desde: cuenta.selectedDates.fromDate.toISOString(),
+        hasta: cuenta.selectedDates.toDate.toISOString(),
       };
       const response = await apiClient.getNpsbyDate(objetoFecha);
       setCuenta({
         ...cuenta,
         cuentaEncuestas: response.data,
       });
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -51,13 +52,13 @@ const EncuestasPorMes = () => {
     }
   };
 
-  const formatDate = (date) => {
-    // Obtener el día, mes y año de la fecha y formatearla como "dd/MM/yyyy"
-    const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const formattedDate = `${day}/${month}/${date.getFullYear()}`;
-    return formattedDate;
-  };
+  // const formatDate = (date) => {
+  //   // Obtener el día, mes y año de la fecha y formatearla como "dd/MM/yyyy"
+  //   const day = String(date.getDate()).padStart(2, "0");
+  //   const month = String(date.getMonth() + 1).padStart(2, "0");
+  //   const formattedDate = `${day}/${month}/${date.getFullYear()}`;
+  //   return formattedDate;
+  // };
 
   const calculateNPSByDay = () => {
     // Agrupar las encuestas por día
