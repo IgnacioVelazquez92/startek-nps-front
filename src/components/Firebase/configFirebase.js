@@ -11,12 +11,12 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBxfkq1g2-RsRMaDH5aRw-X34IVdTAnCLA",
-  authDomain: "nps-startek-3fe3e.firebaseapp.com",
-  projectId: "nps-startek-3fe3e",
-  storageBucket: "nps-startek-3fe3e.appspot.com",
-  messagingSenderId: "793991453161",
-  appId: "1:793991453161:web:a1bcc2e71a9915e9651378",
+  apiKey: import.meta.env.VITE_apiKey,
+  authDomain: import.meta.env.VITE_authDomain,
+  projectId: import.meta.env.VITE_projectId,
+  storageBucket: import.meta.env.VITE_storageBucket,
+  messagingSenderId: import.meta.env.VITE_messagingSenderId,
+  appId: import.meta.env.VITE_appId,
 };
 
 // Initialize Firebase
