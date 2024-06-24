@@ -7,6 +7,7 @@ import Loader from "../Loader/Loader";
 import LineChartDay from "../Charts/LineChartDay";
 import TablaLider from "./TablaLider";
 import CuentaContext from "../../context/CuentaContext";
+import TablaNps from "../generals/tablaNps";
 
 const EncuestasPorMes = () => {
   const { cuenta, setCuenta } = useContext(CuentaContext);
@@ -51,14 +52,6 @@ const EncuestasPorMes = () => {
       setLoading(false);
     }
   };
-
-  // const formatDate = (date) => {
-  //   // Obtener el día, mes y año de la fecha y formatearla como "dd/MM/yyyy"
-  //   const day = String(date.getDate()).padStart(2, "0");
-  //   const month = String(date.getMonth() + 1).padStart(2, "0");
-  //   const formattedDate = `${day}/${month}/${date.getFullYear()}`;
-  //   return formattedDate;
-  // };
 
   const calculateNPSByDay = () => {
     // Agrupar las encuestas por día
@@ -125,7 +118,10 @@ const EncuestasPorMes = () => {
       </div>
 
       {loading && <Loader className="mx-auto" />}
-      {cuenta.cuentaEncuestas && <CalculoNPS data={cuenta.cuentaEncuestas} />}
+
+      {cuenta.cuentaEncuestas && (
+        <TablaNps encuestas={cuenta.cuentaEncuestas} />
+      )}
       {cuenta.cuentaEncuestas.length !== 0 && (
         <TablaLider encuestas={cuenta.cuentaEncuestas} />
       )}
