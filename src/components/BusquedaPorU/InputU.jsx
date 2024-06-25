@@ -1,10 +1,11 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import { ApiClient } from "../../api/services";
 import TablaPorU from "./TablaPorU";
 import Loader from "../Loader/Loader";
 import CalculoNPS from "../Charts/CalculoNPS";
 import AgentContext from "../../context/AgentContext";
+import InputsFecha from "../generals/InputsFecha";
 
 const InputUsuarioU = () => {
   const apiClient = new ApiClient();
@@ -72,31 +73,10 @@ const InputUsuarioU = () => {
         className="d-lg-flex flex-wrap justify-content-center my-3"
       >
         <div className="row g-3">
-          <div className="col">
-            <DatePicker
-              selected={agente.selectedDates.fromDate || firstDayOfMonth}
-              onChange={(date) => handleDateChange(date, "fromDate")}
-              selectsStart
-              dateFormat="dd/MM/yyyy"
-              isClearable
-              placeholderText="Desde"
-              className="me-3 mb-2 rounded py-1 form-control form-control-lg"
-            />
+          <div className="col-6">
+            <InputsFecha context={agente} setContext={setAgente} />
           </div>
-          <div className="col">
-            <DatePicker
-              selected={agente.selectedDates.toDate || new Date()}
-              onChange={(date) => handleDateChange(date, "toDate")}
-              selectsEnd
-              dateFormat="dd/MM/yyyy"
-              isClearable
-              placeholderText="Hasta"
-              className="mb-2 rounded py-1 form-control form-control-lg"
-            />
-          </div>
-        </div>
-        <div className="row g-3">
-          <div className="col-9">
+          <div className="col-3">
             <input
               type="text"
               value={agente.agenteU}
