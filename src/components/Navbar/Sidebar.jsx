@@ -27,7 +27,7 @@ const Sidebar = () => {
             className="d-none d-md-block nav-link text-white sidebar__link"
             activeclassname="active"
           >
-            <i className="bi bi-house-door me-1"></i>
+            <i className="bi bi-house-door "></i>
             Inicio
           </NavLink>
           <NavLink
@@ -36,7 +36,7 @@ const Sidebar = () => {
             className="d-md-none nav-link text-white sidebar__link"
             activeclassname="active"
           >
-            <i className="bi bi-house-door me-1 h1"></i>
+            <i className="bi bi-house-door  h1"></i>
           </NavLink>
         </li>
         <li>
@@ -45,7 +45,7 @@ const Sidebar = () => {
             to="/email"
             className="d-none d-md-block nav-link text-white sidebar__link"
           >
-            <i className="bi bi-people-fill  me-1"></i>
+            <i className="bi bi-people-fill  "></i>
             Clientes
           </NavLink>
 
@@ -54,7 +54,7 @@ const Sidebar = () => {
             to="/email"
             className="d-md-none nav-link text-white sidebar__link"
           >
-            <i className="bi bi-people-fill h1 me-1"></i>
+            <i className="bi bi-people-fill h1 "></i>
           </NavLink>
         </li>
         <li>

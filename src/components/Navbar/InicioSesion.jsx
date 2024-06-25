@@ -18,7 +18,7 @@ const InicioSesion = () => {
       >
         <strong className="d-flex align-items-center">
           <i className="bi bi-person-check-fill h3 me-2"></i>
-          {user.name}
+          <span className="d-none d-md-block">{user.name}</span>
         </strong>
       </button>
       <ul className="dropdown-menu">

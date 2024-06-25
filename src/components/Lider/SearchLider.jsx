@@ -1,33 +1,16 @@
-import DatePicker from "react-datepicker";
 import React, { useState, useEffect, useContext } from "react";
 import { ApiClient } from "../../api/services";
 import Loader from "../Loader/Loader";
-import CalculoNPS from "../Charts/CalculoNPS";
-import TablaAgentes from "./TablaAgentes";
 import NpsByDay from "./NpsByDay";
 import LiderContext from "../../context/LiderContext";
+import InputsFecha from "../generals/InputsFecha";
+import EquipoNPS from "../generals/EquipoNPS";
 
 const SearchLider = () => {
   const apiClient = new ApiClient();
   const { lider, setLider } = useContext(LiderContext);
 
   const [loading, setLoading] = useState(false);
-
-  const handleDateChange = (date, name) => {
-    setLider({
-      ...lider,
-      selectedDates: {
-        ...lider.selectedDates,
-        [name]: date,
-      },
-    });
-  };
-
-  const firstDayOfMonth = new Date(
-    new Date().getFullYear(),
-    new Date().getMonth(),
-    1
-  );
 
   const handleChange = (e) => {
     setLider({
@@ -65,39 +48,32 @@ const SearchLider = () => {
     }
   };
 
+  const filtrosXdsl = [
+    { key: "VAG", value: "VAG_RICMC_ESPECIALIZADA_XDSL_AEGIS_QC1S1" },
+  ];
+  const filtrosCustomer = [
+    {
+      key: "VAG",
+      value: [
+        "VAG_RICMC_CARE_COMBO-CM_SC2-5_OPEN_AEGIS_QC1S1",
+        "VAG_RICMC_CARE_COMBO-CM_SC2-5_FAN_AEGIS_QC1S1",
+        "VAG_RICMC_CARE_CATV_SC2-5_FAN_AEGIS_QC1S1",
+      ],
+    },
+  ];
+  const filtrosFija = [{ key: "VAG", value: "VAG_RIFMC_INTEG_AEGIS_QC1S1" }];
+
   return (
     <>
       <form
         onSubmit={handleSubmit}
-        className="d-lg-flex flex-wrap justify-content-center my-3"
+        className="d-lg-flex flex justify-content-center my-3"
       >
         <div className="row g-3">
-          <div className="col">
-            <DatePicker
-              selected={lider.selectedDates.fromDate || firstDayOfMonth}
-              onChange={(date) => handleDateChange(date, "fromDate")}
-              selectsStart
-              dateFormat="dd/MM/yyyy"
-              isClearable
-              placeholderText="Desde"
-              className="me-3 mb-2 rounded py-1 form-control form-control-lg"
-            />
+          <div className="col-6">
+            <InputsFecha context={lider} setContext={setLider} />
           </div>
-          <div className="col">
-            <DatePicker
-              selected={lider.selectedDates.toDate || new Date()}
-              onChange={(date) => handleDateChange(date, "toDate")}
-              selectsEnd
-              dateFormat="dd/MM/yyyy"
-              isClearable
-              placeholderText="Hasta"
-              className="mb-2 rounded py-1 form-control form-control-lg"
-            />
-          </div>
-        </div>
-
-        <div className="row g-3">
-          <div className="col-9">
+          <div className="col-3">
             <input
               type="text"
               value={lider.liderU}
@@ -109,7 +85,6 @@ const SearchLider = () => {
               required
             />
           </div>
-
           <div className="col-3">
             <button type="submit" className="btn btn-outline-primary btn-lg">
               Calcular
@@ -118,9 +93,30 @@ const SearchLider = () => {
         </div>
       </form>
       {loading && <Loader className="mx-auto" />}
-      <CalculoNPS data={lider.liderEncuestas} />
+
       {lider.liderEncuestas && lider.liderEncuestas.length !== 0 && (
-        <TablaAgentes encuestas={lider.liderEncuestas} />
+        <EquipoNPS
+          encuestas={lider.liderEncuestas}
+          pivotKey="RAC"
+          filters={filtrosXdsl}
+          title={"XDSL"}
+        />
+      )}
+      {lider.liderEncuestas && lider.liderEncuestas.length !== 0 && (
+        <EquipoNPS
+          encuestas={lider.liderEncuestas}
+          pivotKey="RAC"
+          filters={filtrosCustomer}
+          title={"Customer"}
+        />
+      )}
+      {lider.liderEncuestas && lider.liderEncuestas.length !== 0 && (
+        <EquipoNPS
+          encuestas={lider.liderEncuestas}
+          pivotKey="RAC"
+          filters={filtrosFija}
+          title={"Fija Integral"}
+        />
       )}
       <h3 className="my-3 text-center">NPS por día</h3>
       {lider.liderEncuestas && <NpsByDay encuestas={lider.liderEncuestas} />}
