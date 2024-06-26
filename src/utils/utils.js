@@ -22,7 +22,7 @@ export function calcularNPS(encuestas) {
   const resultado = {
     promotores,
     detractores,
-    neutros: total - (promotores + detractores),
+    neutros,
     total,
     nps,
   };
@@ -53,16 +53,24 @@ export const calculoPilares = (encuestas, pilar) => {
     (encuesta) => encuesta[pilar] === "Nada satisfecho"
   ).length;
 
-  const metricaPilar =
+  const metricaPilar = (
     ((muySatisfecho + bastanteSatisfecho) /
       (muySatisfecho +
         bastanteSatisfecho +
         niSatNiInsat +
         pocoSatisfecho +
         nadaSatisfecho)) *
-    100;
+    100
+  ).toFixed(2);
 
-  return metricaPilar.toFixed(2);
+  return {
+    muySatisfecho,
+    bastanteSatisfecho,
+    niSatNiInsat,
+    pocoSatisfecho,
+    nadaSatisfecho,
+    metricaPilar,
+  };
 };
 
 export const calculoResolucion = (encuestas) => {
@@ -75,9 +83,13 @@ export const calculoResolucion = (encuestas) => {
     (item) => item.Resolucion === "No"
   ).length;
 
-  const metricaPilar = (resuelto / (resuelto + noResuelto)) * 100;
+  const metricaPilar = ((resuelto / (resuelto + noResuelto)) * 100).toFixed(2);
 
-  return metricaPilar.toFixed(2);
+  return {
+    resuelto,
+    noResuelto,
+    metricaPilar,
+  };
 };
 
 // Función para agrupar por una clave específica

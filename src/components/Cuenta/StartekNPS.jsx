@@ -102,7 +102,7 @@ const EncuestasPorMes = () => {
           title={"XDSL"}
         />
       )}
-      {cuenta.cuentaEncuestas.length !== 0 && (
+      {/* {cuenta.cuentaEncuestas.length !== 0 && (
         <EquipoNPS
           encuestas={cuenta.cuentaEncuestas}
           pivotKey="LIDER"
@@ -117,7 +117,7 @@ const EncuestasPorMes = () => {
           filters={filtrosFija}
           title={"Fija Integral"}
         />
-      )}
+      )} */}
 
       {cuenta.cuentaEncuestas && (
         <div className="d-flex row justify-content-center px-2 mx-0">
