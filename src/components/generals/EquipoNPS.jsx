@@ -1,4 +1,3 @@
-import React from "react";
 import {
   agruparPor,
   calculoPilares,
@@ -7,7 +6,7 @@ import {
   filtrarYAgrupar,
 } from "../../utils/utils";
 
-const EquipoNPS = ({ encuestas, pivotKey, filters, title }) => {
+const EquipoNPS = ({ encuestas, pivotKey, filters, title, usuarioU }) => {
   // Filtrar y agrupar las encuestas
   const encuestasFiltradas = filters
     ? filtrarYAgrupar(encuestas, filters, pivotKey)
@@ -46,6 +45,7 @@ const EquipoNPS = ({ encuestas, pivotKey, filters, title }) => {
     const claridad = calculoPilares(encuestasGrupo, "Claridad");
     const conocimiento = calculoPilares(encuestasGrupo, "Conocimiento");
     const resolucion = calculoResolucion(encuestasGrupo).metricaPilar;
+    console.log(resolucion);
 
     // Acumular los totales
     totalEncuestas += nps.total;
@@ -67,10 +67,11 @@ const EquipoNPS = ({ encuestas, pivotKey, filters, title }) => {
     sumNiSatNiInsatConocimiento += conocimiento.niSatNiInsat;
     sumPocoSatisfechoConocimiento += conocimiento.pocoSatisfecho;
     sumNadaSatisfechoConocimiento += conocimiento.nadaSatisfecho;
-    sumResolucion += parseFloat(resolucion);
+    sumResolucion += isNaN(resolucion) ? 0 : parseFloat(resolucion);
 
     return (
       <tr key={grupo}>
+        <td>{encuestasGrupo[0]?.[usuarioU]}</td>
         <td>{grupo}</td>
         <td>{nps.total}</td>
         <td>{nps.promotores}</td>
@@ -80,7 +81,7 @@ const EquipoNPS = ({ encuestas, pivotKey, filters, title }) => {
         <td>{cordialidad.metricaPilar}%</td>
         <td>{claridad.metricaPilar}%</td>
         <td>{conocimiento.metricaPilar}%</td>
-        <td>{resolucion}%</td>
+        <td>{isNaN(resolucion) ? "S/D" : resolucion}%</td>
       </tr>
     );
   });
@@ -128,6 +129,7 @@ const EquipoNPS = ({ encuestas, pivotKey, filters, title }) => {
       <table className="table table-hover border-bottom border-dark">
         <thead>
           <tr>
+            <th className="h4">Usuario</th>
             <th className="h4">{pivotKey}</th>
             <th className="h4">Total</th>
             <th>
@@ -149,7 +151,7 @@ const EquipoNPS = ({ encuestas, pivotKey, filters, title }) => {
         <tbody>
           {filas}
           <tr>
-            <td>
+            <td colSpan={2}>
               <strong>Totales</strong>
             </td>
             <td>

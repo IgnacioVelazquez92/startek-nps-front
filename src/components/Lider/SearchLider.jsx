@@ -100,6 +100,7 @@ const SearchLider = () => {
           pivotKey="RAC"
           filters={filtrosXdsl}
           title={"XDSL"}
+          usuarioU="UsuarioU"
         />
       )}
       {lider.liderEncuestas && lider.liderEncuestas.length !== 0 && (
@@ -108,6 +109,7 @@ const SearchLider = () => {
           pivotKey="RAC"
           filters={filtrosCustomer}
           title={"Customer"}
+          usuarioU="UsuarioU"
         />
       )}
       {lider.liderEncuestas && lider.liderEncuestas.length !== 0 && (
@@ -116,6 +118,7 @@ const SearchLider = () => {
           pivotKey="RAC"
           filters={filtrosFija}
           title={"Fija Integral"}
+          usuarioU="UsuarioU"
         />
       )}
       <h3 className="my-3 text-center">NPS por día</h3>

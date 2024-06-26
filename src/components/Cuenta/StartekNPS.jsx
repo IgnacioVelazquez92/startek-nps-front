@@ -100,14 +100,16 @@ const EncuestasPorMes = () => {
           pivotKey="LIDER"
           filters={filtrosXdsl}
           title={"XDSL"}
+          usuarioU="U_LIDER"
         />
       )}
-      {/* {cuenta.cuentaEncuestas.length !== 0 && (
+      {cuenta.cuentaEncuestas.length !== 0 && (
         <EquipoNPS
           encuestas={cuenta.cuentaEncuestas}
           pivotKey="LIDER"
           filters={filtrosCustomer}
           title={"Customer"}
+          usuarioU="U_LIDER"
         />
       )}
       {cuenta.cuentaEncuestas.length !== 0 && (
@@ -116,8 +118,9 @@ const EncuestasPorMes = () => {
           pivotKey="LIDER"
           filters={filtrosFija}
           title={"Fija Integral"}
+          usuarioU="U_LIDER"
         />
-      )} */}
+      )}
 
       {cuenta.cuentaEncuestas && (
         <div className="d-flex row justify-content-center px-2 mx-0">
