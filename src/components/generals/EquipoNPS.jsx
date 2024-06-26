@@ -1,4 +1,3 @@
-import React from "react";
 import {
   agruparPor,
   calculoPilares,
@@ -7,7 +6,7 @@ import {
   filtrarYAgrupar,
 } from "../../utils/utils";
 
-const EquipoNPS = ({ encuestas, pivotKey, filters }) => {
+const EquipoNPS = ({ encuestas, pivotKey, filters, title, usuarioU }) => {
   // Filtrar y agrupar las encuestas
   const encuestasFiltradas = filters
     ? filtrarYAgrupar(encuestas, filters, pivotKey)
@@ -21,9 +20,21 @@ const EquipoNPS = ({ encuestas, pivotKey, filters }) => {
   let totalPromotores = 0;
   let totalNeutros = 0;
   let totalDetractores = 0;
-  let sumCordialidad = 0;
-  let sumClaridad = 0;
-  let sumConocimiento = 0;
+  let sumMuySatisfechoCordialidad = 0;
+  let sumBastanteSatisfechoCordialidad = 0;
+  let sumNiSatNiInsatCordialidad = 0;
+  let sumPocoSatisfechoCordialidad = 0;
+  let sumNadaSatisfechoCordialidad = 0;
+  let sumMuySatisfechoClaridad = 0;
+  let sumBastanteSatisfechoClaridad = 0;
+  let sumNiSatNiInsatClaridad = 0;
+  let sumPocoSatisfechoClaridad = 0;
+  let sumNadaSatisfechoClaridad = 0;
+  let sumMuySatisfechoConocimiento = 0;
+  let sumBastanteSatisfechoConocimiento = 0;
+  let sumNiSatNiInsatConocimiento = 0;
+  let sumPocoSatisfechoConocimiento = 0;
+  let sumNadaSatisfechoConocimiento = 0;
   let sumResolucion = 0;
 
   // Calcular los valores de cada grupo y acumular para los totales
@@ -33,30 +44,44 @@ const EquipoNPS = ({ encuestas, pivotKey, filters }) => {
     const cordialidad = calculoPilares(encuestasGrupo, "Cordialidad");
     const claridad = calculoPilares(encuestasGrupo, "Claridad");
     const conocimiento = calculoPilares(encuestasGrupo, "Conocimiento");
-    const resolucion = calculoResolucion(encuestasGrupo);
+    const resolucion = calculoResolucion(encuestasGrupo).metricaPilar;
+    console.log(resolucion);
 
     // Acumular los totales
     totalEncuestas += nps.total;
     totalPromotores += nps.promotores;
     totalNeutros += nps.neutros;
     totalDetractores += nps.detractores;
-    sumCordialidad += cordialidad;
-    sumClaridad += claridad;
-    sumConocimiento += conocimiento;
-    sumResolucion += resolucion;
+    sumMuySatisfechoCordialidad += cordialidad.muySatisfecho;
+    sumBastanteSatisfechoCordialidad += cordialidad.bastanteSatisfecho;
+    sumNiSatNiInsatCordialidad += cordialidad.niSatNiInsat;
+    sumPocoSatisfechoCordialidad += cordialidad.pocoSatisfecho;
+    sumNadaSatisfechoCordialidad += cordialidad.nadaSatisfecho;
+    sumMuySatisfechoClaridad += claridad.muySatisfecho;
+    sumBastanteSatisfechoClaridad += claridad.bastanteSatisfecho;
+    sumNiSatNiInsatClaridad += claridad.niSatNiInsat;
+    sumPocoSatisfechoClaridad += claridad.pocoSatisfecho;
+    sumNadaSatisfechoClaridad += claridad.nadaSatisfecho;
+    sumMuySatisfechoConocimiento += conocimiento.muySatisfecho;
+    sumBastanteSatisfechoConocimiento += conocimiento.bastanteSatisfecho;
+    sumNiSatNiInsatConocimiento += conocimiento.niSatNiInsat;
+    sumPocoSatisfechoConocimiento += conocimiento.pocoSatisfecho;
+    sumNadaSatisfechoConocimiento += conocimiento.nadaSatisfecho;
+    sumResolucion += isNaN(resolucion) ? 0 : parseFloat(resolucion);
 
     return (
       <tr key={grupo}>
+        <td>{encuestasGrupo[0]?.[usuarioU]}</td>
         <td>{grupo}</td>
         <td>{nps.total}</td>
         <td>{nps.promotores}</td>
         <td>{nps.neutros}</td>
         <td>{nps.detractores}</td>
         <td>{nps.nps}%</td>
-        <td>{cordialidad}%</td>
-        <td>{claridad}%</td>
-        <td>{conocimiento}%</td>
-        <td>{resolucion}%</td>
+        <td>{cordialidad.metricaPilar}%</td>
+        <td>{claridad.metricaPilar}%</td>
+        <td>{conocimiento.metricaPilar}%</td>
+        <td>{isNaN(resolucion) ? "S/D" : resolucion}%</td>
       </tr>
     );
   });
@@ -67,18 +92,44 @@ const EquipoNPS = ({ encuestas, pivotKey, filters }) => {
       ? ((totalPromotores - totalDetractores) / totalEncuestas) * 100
       : 0;
   const totalCordialidad =
-    grupos.length > 0 ? sumCordialidad / grupos.length : 0;
-  const totalClaridad = grupos.length > 0 ? sumClaridad / grupos.length : 0;
+    totalEncuestas > 0
+      ? ((sumMuySatisfechoCordialidad + sumBastanteSatisfechoCordialidad) /
+          (sumMuySatisfechoCordialidad +
+            sumBastanteSatisfechoCordialidad +
+            sumNiSatNiInsatCordialidad +
+            sumPocoSatisfechoCordialidad +
+            sumNadaSatisfechoCordialidad)) *
+        100
+      : 0;
+  const totalClaridad =
+    totalEncuestas > 0
+      ? ((sumMuySatisfechoClaridad + sumBastanteSatisfechoClaridad) /
+          (sumMuySatisfechoClaridad +
+            sumBastanteSatisfechoClaridad +
+            sumNiSatNiInsatClaridad +
+            sumPocoSatisfechoClaridad +
+            sumNadaSatisfechoClaridad)) *
+        100
+      : 0;
   const totalConocimiento =
-    grupos.length > 0 ? sumConocimiento / grupos.length : 0;
+    totalEncuestas > 0
+      ? ((sumMuySatisfechoConocimiento + sumBastanteSatisfechoConocimiento) /
+          (sumMuySatisfechoConocimiento +
+            sumBastanteSatisfechoConocimiento +
+            sumNiSatNiInsatConocimiento +
+            sumPocoSatisfechoConocimiento +
+            sumNadaSatisfechoConocimiento)) *
+        100
+      : 0;
   const totalResolucion = grupos.length > 0 ? sumResolucion / grupos.length : 0;
 
   return (
     <div className="my-3 px-3">
-      <h2>Equipo Coordinación</h2>
+      <h2>{title}</h2>
       <table className="table table-hover border-bottom border-dark">
         <thead>
           <tr>
+            <th className="h4">Usuario</th>
             <th className="h4">{pivotKey}</th>
             <th className="h4">Total</th>
             <th>
@@ -100,7 +151,7 @@ const EquipoNPS = ({ encuestas, pivotKey, filters }) => {
         <tbody>
           {filas}
           <tr>
-            <td>
+            <td colSpan={2}>
               <strong>Totales</strong>
             </td>
             <td>

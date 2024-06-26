@@ -100,6 +100,7 @@ const EncuestasPorMes = () => {
           pivotKey="LIDER"
           filters={filtrosXdsl}
           title={"XDSL"}
+          usuarioU="U_LIDER"
         />
       )}
       {cuenta.cuentaEncuestas.length !== 0 && (
@@ -108,6 +109,7 @@ const EncuestasPorMes = () => {
           pivotKey="LIDER"
           filters={filtrosCustomer}
           title={"Customer"}
+          usuarioU="U_LIDER"
         />
       )}
       {cuenta.cuentaEncuestas.length !== 0 && (
@@ -116,6 +118,7 @@ const EncuestasPorMes = () => {
           pivotKey="LIDER"
           filters={filtrosFija}
           title={"Fija Integral"}
+          usuarioU="U_LIDER"
         />
       )}
 
