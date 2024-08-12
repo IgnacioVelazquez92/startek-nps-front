@@ -8,19 +8,18 @@ function Portada() {
       img: "assets/svg/speech-mail.svg",
       title: "Speech encuesta",
       importancia:
-        "Adapta tu enfoque al hablar con los clientes. Informa que tendrán una encuesta de NPS disponible 24 horas después de su llamada e incentiva la pronta respuesta para evitar mezclar experiencias. Personaliza el speech según su historial de encuestas o no encuestas. Verifica los correos, ya que errores impedirán la entrega de la misma. Tu compromiso asegura evaluaciones precisas y valiosas.",
+        "",
       speech:
         ".. si no te quedó ninguna otra duda o consulta, te recuerdo que al correo xxx@mail.com en 24 horas tendrás disponible una breve encuesta donde podrás calificar qué tanto recomiendas el servicio de acuerdo a mi atención. Tu respuesta me ayuda a seguir mejorando.",
     },
     {
       tipo: "success",
-      title: "Continuidad de servicio",
+      title: "Retención Customer/fija",
       img: "assets/svg/base-speech.svg",
-      importancia:
-        "Según nuestro estudio, más del 60% de las encuestas respondidas como promotoras de alguna u otra forma terminan culminando con la Carga de continuidad de servicio. Por lo tanto, es sumamente importante evitar automatizar este proceso y, en su lugar, esforzarnos siempre por ofrecer un nivel de contención diferenciado.",
-      speech:
-        "Ana, mientras aguardamos a que puedas volver a navegar correctamente, para que no te quedes sin servicio, lo que voy a hacer es cargarte en tu Personal un pack de 40 gigas para compartir con otros dispositivos y 10 gigas de uso libre que va a ser válido por 72 horas. La idea de este paquete de gigas es que puedas seguir conectado a internet desde todos los dispositivos de tu hogar. Sabes como compartir los datos? por que yo puedo guiarte paso a paso de cómo configurar tu teléfono celular como módem.",
-    },
+      importancia:"¿Que buscamos a la hora de rebatir objeciones? Personalización: Se utiliza un lenguaje más cercano y se hace referencia a las necesidades específicas del cliente.\nÉnfasis en los beneficios: Se destacan los beneficios que el cliente obtendrá al aceptar la promoción (precio fijo, flexibilidad, tranquilidad).\nCreación de valor: Se muestra al cliente que la empresa está dispuesta a trabajar con él para encontrar una solución.\nLlamada a la acción clara: Se invita al cliente a aceptar la promoción y se le ofrece una solución concreta.",
+    speech:
+    "Sé específico: Menciona el descuento o el precio fijo exacto que estás ofreciendo.\nSé positivo: Mantén un tono de voz amable y entusiasta.\nSé claro: Explica de manera sencilla las condiciones de la promoción.\nSé paciente: Permite que el cliente reflexione sobre la oferta.\nSé persistente: Si el cliente muestra dudas, refuerza los beneficios y responde a sus objeciones.",
+},
     // Puedes agregar más tips y speechs aquí
   ];
 
@@ -40,7 +39,7 @@ function Portada() {
                   <div className="col-md-8">
                     <p>{tip.importancia}</p>
                     <hr />
-                    Speech sugerido:
+                    Como hacemos esto:
                     <p className="fst-italic">{tip.speech}</p>
                   </div>
                 </div>
