@@ -14,7 +14,7 @@ import Loader from "../Loader/Loader";
 import UserContext from "../../context/userContext";
 
 const BuenasPracticas = () => {
-  const [segmento, setSegmento] = useState("Continuidad");
+  const [segmento, setSegmento] = useState("Disconformidad Precio");
   const [titulo, setTitulo] = useState("");
   const [importancia, setImportancia] = useState("");
   const [tips, setTips] = useState("");
@@ -77,7 +77,7 @@ const BuenasPracticas = () => {
         });
       } finally {
         setLoading(false);
-        setSegmento("Continuidad");
+        setSegmento("Disconformidad Precio");
         setTitulo("");
         setImportancia("");
         setTips("");
@@ -160,15 +160,15 @@ const BuenasPracticas = () => {
             onChange={(e) => setSegmento(e.target.value)}
             required
           >
-            <option value="Continuidad">Continuidad</option>
-            <option value="Encuesta">Encuesta</option>
-            <option value="Clientes sin servicio Prolongado">
-              Clientes sin servicio Prolongado
+            <option value="Disconformidad Precio">Disconformidad Precio</option>
+            <option value="Mudanza">Mudanza</option>
+            <option value="Fallecimiento del titular">
+              Fallecimiento del titular
             </option>
-            <option value="Manejo de objeciones">Manejo de objeciones</option>
-            <option value="Detractor frecuente">Detractor frecuente</option>
-            <option value="Agendas">Agendas</option>
-            <option value="Agendas">Sondeo</option>
+            <option value="Fallas tecnicas">Fallas técnicas</option>
+            <option value="Poco uso">Poco uso</option>
+            <option value="Competencia">Competencia mejor promo</option>
+            <option value="Sondeo">Sondeo</option>
           </select>
         </div>
         <div className="mb-3">
