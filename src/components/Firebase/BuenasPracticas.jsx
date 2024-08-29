@@ -14,6 +14,7 @@ import Loader from "../Loader/Loader";
 import UserContext from "../../context/userContext";
 
 const BuenasPracticas = () => {
+  const [proceso, setProceso] = useState("Customer");
   const [segmento, setSegmento] = useState("Disconformidad Precio");
   const [titulo, setTitulo] = useState("");
   const [importancia, setImportancia] = useState("");
@@ -41,6 +42,7 @@ const BuenasPracticas = () => {
         const downloadURL = await uploadFile(archivo);
 
         const data = {
+          proceso,
           segmento,
           titulo,
           importancia,
@@ -149,6 +151,23 @@ const BuenasPracticas = () => {
       <h2 className="text-center">Registro de Buenas prácticas</h2>
 
       <form className="px-5" onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label htmlFor="proceso" className="form-label">
+            Proceso PCRC
+          </label>
+          <select
+            className="form-select"
+            id="proceso"
+            value={proceso}
+            onChange={(e) => setProceso(e.target.value)}
+            required
+          >
+            <option value="Customer">Customer FAN</option>
+            <option value="Integral">Fija </option>
+            <option value="XDSL">XDSL</option>
+          </select>
+        </div>
+
         <div className="mb-3">
           <label htmlFor="segmento" className="form-label">
             Segmento
