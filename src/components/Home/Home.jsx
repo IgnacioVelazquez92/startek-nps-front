@@ -37,7 +37,6 @@ const Home = () => {
       <Carrusel />
       <Portada />
       <SegmentsList dataFromFirestore={dataFromFirestore} />
-      <Procedimientos pdfFromFirestore={pdfFromFirestore} />
     </>
   );
 };

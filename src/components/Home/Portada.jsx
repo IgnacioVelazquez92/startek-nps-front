@@ -5,27 +5,21 @@ function Portada() {
   const tips = [
     {
       tipo: "success",
-      img: "assets/svg/speech-mail.svg",
-      title: "Speech encuesta",
-      importancia:
-        "",
-      speech:
-        ".. si no te quedó ninguna otra duda o consulta, te recuerdo que al correo xxx@mail.com en 24 horas tendrás disponible una breve encuesta donde podrás calificar qué tanto recomiendas el servicio de acuerdo a mi atención. Tu respuesta me ayuda a seguir mejorando.",
-    },
-    {
-      tipo: "success",
       title: "Retención Customer/fija",
       img: "assets/svg/base-speech.svg",
-      importancia:"¿Que buscamos a la hora de rebatir objeciones? Personalización: Se utiliza un lenguaje más cercano y se hace referencia a las necesidades específicas del cliente.\nÉnfasis en los beneficios: Se destacan los beneficios que el cliente obtendrá al aceptar la promoción (precio fijo, flexibilidad, tranquilidad).\nCreación de valor: Se muestra al cliente que la empresa está dispuesta a trabajar con él para encontrar una solución.\nLlamada a la acción clara: Se invita al cliente a aceptar la promoción y se le ofrece una solución concreta.",
-    speech:
-    "Sé específico: Menciona el descuento o el precio fijo exacto que estás ofreciendo.\nSé positivo: Mantén un tono de voz amable y entusiasta.\nSé claro: Explica de manera sencilla las condiciones de la promoción.\nSé paciente: Permite que el cliente reflexione sobre la oferta.\nSé persistente: Si el cliente muestra dudas, refuerza los beneficios y responde a sus objeciones.",
-},
+      importancia:
+        "¿Que buscamos a la hora de rebatir objeciones? Personalización: Se utiliza un lenguaje más cercano y se hace referencia a las necesidades específicas del cliente.\nÉnfasis en los beneficios: Se destacan los beneficios que el cliente obtendrá al aceptar la promoción (precio fijo, flexibilidad, tranquilidad).\nCreación de valor: Se muestra al cliente que la empresa está dispuesta a trabajar con él para encontrar una solución.\nLlamada a la acción clara: Se invita al cliente a aceptar la promoción y se le ofrece una solución concreta.",
+      speech:
+        "Sé específico: Menciona el descuento o el precio fijo exacto que estás ofreciendo.\nSé positivo: Mantén un tono de voz amable y entusiasta.\nSé claro: Explica de manera sencilla las condiciones de la promoción.\nSé paciente: Permite que el cliente reflexione sobre la oferta.\nSé persistente: Si el cliente muestra dudas, refuerza los beneficios y responde a sus objeciones.",
+    },
     // Puedes agregar más tips y speechs aquí
   ];
 
   return (
     <>
-      <h2 className="my-3 text-center">Tips para mejorar tu eficacia</h2>
+      <h2 className="my-3 text-center">
+        Tips para mejorar tu eficacia en Retención
+      </h2>
       <div className="container">
         <Accordion defaultActiveKey="0">
           {tips.map((tip, index) => (
