@@ -74,6 +74,7 @@ const EncuestasPorMes = () => {
         "VAG_RICMC_CARE_COMBO-CM_SC2-5_OPEN_AEGIS_QC1S1",
         "VAG_RICMC_CARE_COMBO-CM_SC2-5_FAN_AEGIS_QC1S1",
         "VAG_RICMC_CARE_CATV_SC2-5_FAN_AEGIS_QC1S1",
+        "VAG_RICMC_CARE_FACT_SC2-5_FAN_AEGIS_QC1S1",
       ],
     },
   ];
